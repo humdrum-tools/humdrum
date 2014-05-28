@@ -1,10 +1,9 @@
 /****************************************************************************/
-/*                     HUMDRUM_.C                            		*/
-/*	Programmer: Tim Racinsky	Date: July 1993			*/
-/*	This file contains the main program for the humdrum     	*/
-/* command.                                                 		*/  
-/*									*/
-/*      Bug fix related to a newer compiler by Craig Sapp 28 Sep 2006   */
+/* HUMDRUM_.C                               		                    	*/
+/*	Programmer: Tim Racinsky	Date: July 1993			   					*/
+/*	This file contains the main program for the humdrum command.   	    	*/
+/*									    									*/
+/*      Bug fix related to a newer compiler by Craig Sapp 28 Sep 2006       */
 /****************************************************************************/
 
 #include <stdio.h>
@@ -23,13 +22,192 @@
 #endif
 
 #include <stdlib.h>
-#include "defines.h"
-#include "typedefs.h"
-#include "humdrum_.h"
 
 /****************************************************************************/
-/*						Function main										*/
-/*																			*/
+/* DEFINES								   									*/
+/* #define statements for the humdrum program				    			*/
+/****************************************************************************/
+
+#define TRUE 1
+#define FALSE 0
+#define NO_ERROR 1
+#define ERROR 0
+#define FILE_LENGTH 100
+#define LINE_LENGTH 1024
+#define NAME_LENGTH 80
+#define NULL_TOKEN "."
+#define SPACE " "
+#define CONSECUTIVE_SPACE "  "
+#define TAB "\t"
+#define CONSECUTIVE_TABS "\t\t"
+#define EOL "\n"
+#define READ_ONLY "r"
+#define TAB_CHAR '\t'
+#define SPACE_CHAR ' '
+#define NEWLINE '\n'
+#define TERMINATE '\0'
+
+#define OPEN_ERROR "humdrum: ERROR: Cannot open file %s\n"
+#define BAD_OPTIONS "humdrum: ERROR: Unknown options: %s\n"
+#define MEMORY "humdrum: ERROR: Out of Memory\n"
+#define USAGE "\n\nUSAGE: humdrum -h|-?              (Help Screen)\n       hu" \
+			  "mdrum [-v] [file ...]\n"
+#define ERROR1 "humdrum: ERROR 1: Record containing add-spine indicator " \
+               "has not been\n                  followed by exclusive " \
+               "interpretation for that spine\n                 "
+#define ERROR2 "humdrum: ERROR 2: Illegal empty record"
+#define ERROR3 "humdrum: ERROR 3: Leading tab"
+#define ERROR4 "humdrum: ERROR 4: Trailing tab"
+#define ERROR5 "humdrum: ERROR 5: Consecutive tabs"
+#define ERROR6 "humdrum: ERROR 6: Missing initial asterisk in " \
+               "interpretation\n                  keyword"
+#define ERROR7 "humdrum: ERROR 7: Null exclusive interpretation found "
+#define ERROR8 "humdrum: ERROR 8: Incorrect number of spines in " \
+               "interpretation\n                  record"
+#define ERROR9 "humdrum: ERROR 9: Local comment precedes first exclusive " \
+               "interpretation\n                  record"
+#define ERROR10 "humdrum: ERROR 10: Number of sub-comments in local " \
+                "comment does not match the\n                   number " \
+                "of currently active spines"
+#define ERROR11 "humdrum: ERROR 11: Missing initial exclamation mark in " \
+                "local comment\n                  "
+#define ERROR12 "humdrum: ERROR 12: Data record appears before first " \
+                "exclusive interpretation\n                   record"
+#define ERROR13 "humdrum: ERROR 13: Number of tokens in data record does " \
+                "not match the\n                   number of currently " \
+                "active spines"
+#define ERROR14 "humdrum: ERROR 14: All spines have not been properly " \
+                "terminated\n                  "
+#define ERROR15 "humdrum: ERROR 15: First exclusive interpretation record " \
+                "contains a null\n                   interpretation"
+#define ERROR16 "humdrum: ERROR 16: First exclusive interpretation record " \
+                "contains a spine-path\n                   indicator"
+#define ERROR17 "humdrum: ERROR 17: First exclusive interpretation record " \
+                "contains a\n                   non-exclusive " \
+                "interpretation"
+#define ERROR18 "humdrum: ERROR 18: Spine-path indicators mixed with " \
+                "\n                   keyword interpretations"
+#define ERROR19 "humdrum: ERROR 19: Improper number of exchange-path " \
+                "indicators\n                  "
+#define ERROR20 "humdrum: ERROR 20: Single join-path indicator found at end " \
+                "of\n                   interpretation record"
+#define ERROR21 "humdrum: ERROR 21: Join-path indicator is not adjacent to " \
+                "another\n                   join-path indicator"
+#define ERROR22 "humdrum: ERROR 22: Exclusive interpretations do not match " \
+                "for designated\n                   join spines"
+#define ERROR23 "humdrum: ERROR 23: Leading spaces in token"
+#define ERROR24 "humdrum: ERROR 24: Trailing spaces in token"
+#define ERROR25 "humdrum: ERROR 25: Consecutive spaces in token"
+#define ERROR26 "humdrum: ERROR 26: Multiple-stop contains null token"
+#define WARNING1 "humdrum: WARNING 1: Local comment may be mistaken for " \
+                 "global comment\n                   "
+#define WARNING2 "humdrum: WARNING 2: Data token may be mistaken for " \
+                 "global comment\n                   "
+#define WARNING3 "humdrum: WARNING 3: Data token may be mistaken for local " \
+                 "comment\n                   "
+#define WARNING4 "humdrum: WARNING 4: Data token may be mistaken for " \
+                 "exclusive interpretation\n                   "
+#define WARNING5 "humdrum: WARNING 5: Data token may be mistaken for tandem " \
+                 "interpretation\n                   "
+
+/****************************************************************************/
+/* TYPEDEFS								   									*/
+/****************************************************************************/
+
+typedef struct file_list file_list;
+typedef struct tokens tokens;
+typedef struct interp_list interp_list;
+typedef struct interp_inventory interp_inventory;
+
+struct file_list {
+	FILE 		*stream;
+	char 		file_name[FILE_LENGTH];
+	file_list 	*next_file;
+};
+
+struct tokens {
+	int 	number;
+	char 	**token;
+};
+
+struct interp_list {
+	char			name[NAME_LENGTH];
+	char			indicator;
+	interp_list		*next_interp;
+};
+
+struct interp_inventory {
+	char				name[NAME_LENGTH];
+	int					count;
+	interp_inventory	*next_interp;
+};
+
+/****************************************************************************/
+/* Function prototypesand global variables for the humdrum_ program.	    */
+/****************************************************************************/
+
+file_list *file_header;
+interp_list *interp_header;
+interp_inventory *ex_inven_header;
+interp_inventory *tand_inven_header;
+
+int verbose;
+int help;
+int current_no_of_spines;
+int first_interpretation_yet;
+int fnr;
+char current_filename[FILE_LENGTH];
+
+int new_path;
+char signifiers[127];
+int global_comments;
+int local_comments;
+int maximum_no_of_spines;
+int minimum_no_of_spines;
+int number_of_data_records;
+int null_tokens;
+int added_spines;
+int terminated_spines;
+int split_spines;
+int joined_spines;
+int exchanged_spines;
+
+/* Functions in humdrum.c */
+
+void init_data(void);
+int parse_command(int, char**);
+void clean_up(void);
+void check_files(void);
+void process_global();
+void process_local(tokens);
+void process_interpretation(tokens);
+void process_data(tokens);
+void check_first_interp(tokens);
+void store_new_interps(tokens);
+void take_inventory(char *,interp_inventory *);
+void check_new_path(tokens);
+void print_syntax_error(char *);
+void print_verbose(void);
+void print_help(void);
+
+void store_indicators(tokens);
+void process_indicators(tokens);
+interp_list *do_split(interp_list *);
+interp_list *do_terminate(interp_list *,interp_list *);
+interp_list *do_exchange(interp_list *);
+interp_list *do_join(interp_list *);
+interp_list *do_add(interp_list *);
+interp_list *insert_new(interp_list *);
+interp_list *delete_old(interp_list *,interp_list *);
+int open_file(char *, char*);
+void add_file(char *);
+void split_string(char *, char *, tokens*);
+void free_tokens(tokens);
+void print_error(char *,char *);
+
+
+/****************************************************************************/
+/*  Function main							    							*/
 /****************************************************************************/
 
 int main (int argc,char *argv[]) {
@@ -55,8 +233,7 @@ int main (int argc,char *argv[]) {
 }
 
 /****************************************************************************/
-/*						Function init_data									*/
-/*																			*/
+/* Function init_data							    						*/
 /****************************************************************************/
 
 void init_data() {
@@ -113,7 +290,6 @@ void init_data() {
 
 /****************************************************************************/
 /*						Function parse_command								*/
-/*																			*/
 /****************************************************************************/
 
 int parse_command(int argc,char *argv[]) {
@@ -200,7 +376,6 @@ int parse_command(int argc,char *argv[]) {
 
 /****************************************************************************/
 /*						Function clean_up									*/
-/*																			*/
 /****************************************************************************/
 
 void clean_up() {
@@ -256,7 +431,6 @@ void clean_up() {
 
 /****************************************************************************/
 /*						Function print_help									*/
-/*																			*/
 /****************************************************************************/
 
 void print_help() {
@@ -280,11 +454,12 @@ void print_help() {
 
 /****************************************************************************/
 /*						Function check_files								*/
-/*																			*/
 /****************************************************************************/
 
 void check_files() {
 
+	char* status = NULL;
+        status++;
 	tokens fields;					/* Holds each field in a line */
 	char *character;
 	file_list *current_file;
@@ -327,7 +502,7 @@ void check_files() {
 
 		/* Loop through all input lines for the current file */
 
-		fgets(current_line,LINE_LENGTH,current_file->stream);
+		status = fgets(current_line,LINE_LENGTH,current_file->stream);
 		character = strchr(current_line,NEWLINE);
 		if (character != NULL) {
 			*character = TERMINATE;
@@ -388,7 +563,7 @@ void check_files() {
 				}
 			}
 			fnr += 1;
-			fgets(current_line,LINE_LENGTH,current_file->stream);
+			status = fgets(current_line,LINE_LENGTH,current_file->stream);
 			character = strchr(current_line,NEWLINE);
 			if (character != NULL) {
 				*character = TERMINATE;
@@ -413,7 +588,6 @@ void check_files() {
 
 /****************************************************************************/
 /*						Function process_global								*/
-/*																			*/
 /****************************************************************************/
 
 void process_global() {
@@ -427,7 +601,6 @@ void process_global() {
 
 /****************************************************************************/
 /*						Function process_local								*/
-/*																			*/
 /****************************************************************************/
 
 void process_local(tokens fields) {
@@ -474,7 +647,6 @@ void process_local(tokens fields) {
 
 /****************************************************************************/
 /*					Function process_interpretation							*/
-/*																			*/
 /****************************************************************************/
 
 void process_interpretation(tokens fields) {
@@ -569,7 +741,6 @@ void process_interpretation(tokens fields) {
 
 /****************************************************************************/
 /*						Function check_first_interp							*/
-/*																			*/
 /****************************************************************************/
 
 void check_first_interp(tokens fields) {
@@ -597,7 +768,6 @@ void check_first_interp(tokens fields) {
 
 /****************************************************************************/
 /*						Function store_new_interps							*/
-/*																			*/
 /****************************************************************************/
 
 void store_new_interps(tokens fields) {
@@ -653,7 +823,6 @@ void store_new_interps(tokens fields) {
 
 /****************************************************************************/
 /*						Function check_new_path								*/
-/*																			*/
 /****************************************************************************/
 
 void check_new_path(tokens fields) {
@@ -685,7 +854,6 @@ void check_new_path(tokens fields) {
 
 /****************************************************************************/
 /*						Function take_inventory								*/
-/*																			*/
 /****************************************************************************/
 
 void take_inventory(char *name,interp_inventory *list_header) {
@@ -726,7 +894,6 @@ void take_inventory(char *name,interp_inventory *list_header) {
 
 /****************************************************************************/
 /*						Function process_data								*/
-/*																			*/
 /****************************************************************************/
 
 void process_data(tokens fields) {
@@ -801,8 +968,8 @@ void process_data(tokens fields) {
 			}
 			character = fields.token[j];
 			while (*character != TERMINATE) {
-				if (signifiers[*character] == 0) {
-					signifiers[*character] = *character;
+				if (signifiers[(int)*character] == 0) {
+					signifiers[(int)*character] = *character;
 				}
 				character += 1;
 			}
@@ -824,7 +991,6 @@ void process_data(tokens fields) {
 
 /****************************************************************************/
 /*						Function print_verbose								*/
-/*																			*/
 /****************************************************************************/
 		
 void print_verbose() {
@@ -879,7 +1045,6 @@ void print_verbose() {
 
 /****************************************************************************/
 /*						Function print_syntax_error							*/
-/*																			*/
 /****************************************************************************/
 
 void print_syntax_error(char *message) {
@@ -894,7 +1059,6 @@ void print_syntax_error(char *message) {
 
 /****************************************************************************/
 /*						Function open_file									*/
-/*																			*/
 /****************************************************************************/
 
 int open_file(char *filename,char *rights) {
@@ -918,7 +1082,6 @@ int open_file(char *filename,char *rights) {
 
 /****************************************************************************/
 /*						Function add_file									*/
-/*																			*/
 /****************************************************************************/
 
 void add_file(char *name) {
@@ -947,7 +1110,6 @@ void add_file(char *name) {
 
 /****************************************************************************/
 /*						Function store_indicators							*/
-/*																			*/
 /****************************************************************************/
 
 void store_indicators(tokens fields) {
@@ -991,7 +1153,6 @@ void store_indicators(tokens fields) {
 
 /****************************************************************************/
 /*						Function process_indicators							*/
-/*																			*/
 /****************************************************************************/
 
 void process_indicators(tokens fields) {
@@ -1031,7 +1192,6 @@ void process_indicators(tokens fields) {
 
 /****************************************************************************/
 /*						Function do_split									*/
-/*																			*/
 /****************************************************************************/
 
 interp_list *do_split(interp_list *current) {
@@ -1057,7 +1217,6 @@ interp_list *do_split(interp_list *current) {
 
 /****************************************************************************/
 /*						Function do_terminate								*/
-/*																			*/
 /****************************************************************************/
 
 interp_list *do_terminate(interp_list *current,interp_list *previous) {
@@ -1076,7 +1235,6 @@ interp_list *do_terminate(interp_list *current,interp_list *previous) {
 
 /****************************************************************************/
 /*						Function do_exchange								*/
-/*																			*/
 /****************************************************************************/
 
 interp_list *do_exchange(interp_list *current) {
@@ -1127,7 +1285,6 @@ interp_list *do_exchange(interp_list *current) {
 
 /****************************************************************************/
 /*						Function do_join									*/
-/*																			*/
 /****************************************************************************/
 
 interp_list *do_join(interp_list *current) {
@@ -1181,7 +1338,6 @@ interp_list *do_join(interp_list *current) {
 
 /****************************************************************************/
 /*						Function do_add										*/
-/*																			*/
 /****************************************************************************/
 
 interp_list *do_add(interp_list *current) {
@@ -1209,7 +1365,6 @@ interp_list *do_add(interp_list *current) {
 
 /****************************************************************************/
 /*						Function insert_new									*/
-/*																			*/
 /****************************************************************************/
 
 interp_list *insert_new(interp_list *current) {
@@ -1231,7 +1386,6 @@ interp_list *insert_new(interp_list *current) {
 
 /****************************************************************************/
 /*						Function delete_old									*/
-/*																			*/
 /****************************************************************************/
 
 interp_list *delete_old(interp_list *current,interp_list *previous) {
@@ -1250,7 +1404,6 @@ interp_list *delete_old(interp_list *current,interp_list *previous) {
 
 /****************************************************************************/
 /*						Function split_string								*/
-/*																			*/
 /****************************************************************************/
 
 void split_string(char *string,char *delim,tokens *this_line) {
@@ -1297,7 +1450,6 @@ void split_string(char *string,char *delim,tokens *this_line) {
 
 /****************************************************************************/
 /*						Function free_tokens								*/
-/*																			*/
 /****************************************************************************/
 
 void free_tokens(tokens fields) {
@@ -1312,7 +1464,6 @@ void free_tokens(tokens fields) {
 
 /****************************************************************************/
 /*						Function print_error								*/
-/*																			*/
 /****************************************************************************/
 
 void print_error(char *message,char *args) {

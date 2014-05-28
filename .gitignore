@@ -1,13 +1,9 @@
-*.o
-*.lo
-*.a
-*.la
-*.pc
-*.log
+/bin
 
-/toolkit/src/rid/rid_
-/toolkit/src/mkern/mkern
-/toolkit/src/midi/midi
-/toolkit/src/humdrum/humdrum_
-/toolkit/src/assemble/assemble
+/toolkit-source/c-programs/assemble
+/toolkit-source/c-programs/humdrum_
+/toolkit-source/c-programs/midi
+/toolkit-source/c-programs/mkern
+/toolkit-source/c-programs/rid_
+/toolkit-source/c-programs/scand
 

@@ -29,19 +29,19 @@ void	scandirect ( char *dirname )
 	DIR *dir;
 	char	**names;
 	long	numfiles;
-	int	longest;
+	// int	longest;
 	struct dirent *ent;
 	int i;
 	int	chrs;
-	struct stat buf;
-	char pathname[1024];
+	// struct stat buf;
+	//char pathname[1024];
 
 	if ( (dir=opendir(dirname)) == NULL )
 		return;
 
 	i = 0;
 	chrs = 0;
-	longest = 0;
+	// longest = 0;
 	numfiles = 0;
 
 	while ( (ent = readdir (dir)) != NULL )
@@ -89,10 +89,12 @@ void	scandirect ( char *dirname )
 
 /* main */
 
-void	main (int argc, char *argv[])
+int	main (int argc, char *argv[])
 {
 	if (argc<2)
 		scandirect(".");
 	else
 		scandirect(argv[1]);
+
+	return 0;
 }

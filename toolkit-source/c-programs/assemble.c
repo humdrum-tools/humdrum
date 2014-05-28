@@ -1,3 +1,12 @@
+/************************************
+  Various definitions used by
+  the assemble.c file.
+************************************/
+
+#define 	TRUE	1
+#define	FALSE	0
+#define	NUM_FILES	40
+
 /*************************************
   Assemble : amalgamates humdrum
   files
@@ -7,7 +16,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "assemble.h"
 
 /***************************************
   The following are global variables.
@@ -16,12 +24,12 @@
   program elements in this file.
 ***************************************/
 
-static	int	numfiles;						/* The current number of spines */
-static	char	buffer[960];						/* Our input buffer */
+static	int	numfiles;		/* The current number of spines */
+static	char	buffer[960];		/* Our input buffer */
 static	char	bufline[960];
 static 	char	tokens[NUM_FILES][960];
 static	char	comments[20000];
-static	FILE	*infiles[NUM_FILES];			/* input files */
+static	FILE	*infiles[NUM_FILES];	/* input files */
 static	int	closed[NUM_FILES];
 static	FILE	*outfile;
 
@@ -726,4 +734,6 @@ int	main 	(int argc, char *argv[])
 		if (!closed[i])
 			fclose(infiles[i]);
 	}
+
+	return 0;
 }

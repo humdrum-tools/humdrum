@@ -36,7 +36,16 @@
 #include <sys/malloc.h>
 #endif
 
-#include "mkern.h"
+/*******************************************************
+	Defines
+*******************************************************/
+
+#define TRUE 1
+#define FALSE 0
+
+#define LEFT 1
+#define RIGHT 2
+#define LEFTRIGHT 3
 
 /************************************************
    Global variables. Yes, I use them. So what?
@@ -66,7 +75,7 @@ int	tie_state = 0;
 int	comments;
 int	double_stop;
 long 	int memory;
-long	int back;
+int 	back;
 char	instrument[20];
 int	pizz;
 int	readrc;
@@ -74,11 +83,11 @@ int	interactive;
 int	verbose;
 int	comment_unknowns;
 #ifdef __MSDOS__
-unsigned char huge *pool;
-unsigned char huge *cur;
+char huge *pool;
+char huge *cur;
 #else
-unsigned char *pool;
-unsigned char *cur;
+char *pool;
+char *cur;
 #endif
 
 /* Necessary prototypes */
@@ -376,7 +385,7 @@ void	process_attributes (void)
 	int	tempnum;
 	int	sign;
 	char	circle[7][2] = { "f", "c", "g", "d", "a", "e", "b" };
-	int	pcmap[8] = { 9, 11, 0, 2, 4, 5, 7, 9 };
+	// int	pcmap[8] = { 9, 11, 0, 2, 4, 5, 7, 9 };
 
 	i = 0;
 
@@ -440,7 +449,7 @@ void	process_attributes (void)
 					j=2; k=2;
 				}
 
-				if ( j==1 & k==1 )
+				if ( (j==1) && (k==1) )
 				{
 					j=4; k=4;
 				}
@@ -551,7 +560,7 @@ void	process_attributes (void)
 void	print_duration ( char *durtok, int temp )
 {
 	int high;
-	int low;
+	// int low;
 	int done;
 
 	high = temp;
@@ -579,7 +588,7 @@ void	print_duration ( char *durtok, int temp )
 
 	if ( (qdiv % high) == 0 )
 	{
-		sprintf(durtok, "%d\0", qdiv / (high*2));
+		sprintf(durtok, "%d", qdiv / (high*2));
 	}
 	else if (high % 7 == 0)
 	{
@@ -608,11 +617,11 @@ void	print_duration ( char *durtok, int temp )
 int	find_duration (char *durtok)
 {
 	int 	temp;
-	int	dotted;
-	int	duration;	
+	// int	dotted;
+	// int	duration;	
 	char	dur[10];
-	int	quart;
-	int	i, j, k;
+	// int	quart;
+	// int	i, j, k;
 	int	rc;
 	int 	done;
 	int	high;
@@ -729,7 +738,8 @@ void	find_note(char *notetok)
 
 void	find_junk (char *forejunktok, char *aftjunktok)
 {
-	int i,j,k;
+	int i,j;
+	// int k;
 	char	check[13];
 	int	opened_tie;
 
@@ -987,7 +997,7 @@ void	print_section (int secttype)
 
 void	check_repeats (void)
 {
-	int i;
+	// int i;
 
 	if ( strstr(buffer, ":|:") )
 	{
@@ -1012,15 +1022,18 @@ void	check_repeats (void)
 
 void	process (void)
 {
+	char*   status = NULL;
+        status++;
 	int	num_matched;
-	int	i, j, k;
+	int	i, j;
+	//int 	k;
 	int	rc;
 	char	mtype[20];
 	char	duration[20];
 	char	note[20];
 	char	forejunk[20];
 	char	aftjunk[20];
-	char	token[80];
+	// char	token[80];
 	char	scanline[960];
 
 	switch (buffer[0])
@@ -1125,7 +1138,7 @@ void	process (void)
 			while ( (j=getc(infile)) == 'P' || j=='S')
 			{
 				ungetc(j, infile);
-				fgets(buffer, 960, infile);
+				status = fgets(buffer, 960, infile);
 			}
 
 			if ( j != ' ')
@@ -1398,9 +1411,9 @@ void	printform (int pos, FILE *outf)
 
 void	convert ( FILE *infile )
 {
-	int i,j,k;
-	char token[80];
-	char temp[80];
+	// int i,j,k;
+	// char token[80];
+	// char temp[80];
 	int	skip;
 
 	memset(stack, 0, 100);
@@ -1496,6 +1509,8 @@ void	scandirect ( char *dirname )
 
 void	getinputdata (void)
 {
+	char* status = NULL;
+ 	status++;
 	char arg[1024];
 	int	done;
 
@@ -1507,7 +1522,7 @@ void	getinputdata (void)
 	while (!done)
 	{
 		printf("\nEnter directory of source (MuseData) files:\n");
-		fgets(arg, 1024, stdin);
+		status = fgets(arg, 1024, stdin);
 		if (strlen(arg) > 0 )
 		{
 			sscanf(arg, "%s", indirname);
@@ -1525,7 +1540,7 @@ void	getinputdata (void)
 	}
 
 	printf("\nEnter directory for target (Kern) files:\n");
-	fgets(arg, 1024, stdin);
+	status = fgets(arg, 1024, stdin);
 	if (strlen(arg) > 0 )
 	{
 		sscanf(arg, "%s", outdirname);
@@ -1534,7 +1549,7 @@ void	getinputdata (void)
 	arg[0] = '\0';
 
 	printf("\nEnter filename for conversion script file that will be created\nby this program:\n");
-	fgets(arg, 1024, stdin);
+	status = fgets(arg, 1024, stdin);
 	sscanf(arg, "%s", scriptfilename);
 	/* printf("Script filename set to %s\n", scriptfilename); */
 	if (strlen(scriptfilename) > 0)
@@ -1542,7 +1557,7 @@ void	getinputdata (void)
 	arg[0] = '\0';
 
 	printf("\nEnter filename for final assembled (kern) datafile:\n");
-	fgets(arg, 1024, stdin);
+	status = fgets(arg, 1024, stdin);
 	sscanf(arg, "%s", targetfilename);
 	/* printf("target filename set to %s\n", targetfilename); */
 	arg[0] = '\0';
@@ -1621,11 +1636,11 @@ int	do_file ( int filenum )
 	int success;
 
 #ifdef __MSDOS__
-	sprintf(infilename, "%s\\%02d\0", indirname, filenum);
-	sprintf(outfilename, "%s\\%02d.krn\0", outdirname, filenum);
+	sprintf(infilename, "%s\\%02d", indirname, filenum);
+	sprintf(outfilename, "%s\\%02d.krn", outdirname, filenum);
 #else
-	sprintf(infilename, "%s/%02d\0", indirname, filenum);
-	sprintf(outfilename, "%s/%02d.krn\0", outdirname, filenum);
+	sprintf(infilename, "%s/%02d", indirname, filenum);
+	sprintf(outfilename, "%s/%02d.krn", outdirname, filenum);
 #endif
 
 	/* printf("in do_file with files %s and %s\n", infilename, outfilename); */
@@ -1675,9 +1690,9 @@ void	generate (int k)
 		return;
 
 #ifdef __MSDOS__
-	sprintf(script, "%s\\%s\0", outdirname, scriptfilename);
+	sprintf(script, "%s\\%s", outdirname, scriptfilename);
 #else
-	sprintf(script, "%s/%s\0", outdirname, scriptfilename);
+	sprintf(script, "%s/%s", outdirname, scriptfilename);
 #endif
 
 	scriptf = fopen(script, "w");
@@ -1823,10 +1838,10 @@ int	main ( int argc, char *argv[] )
 
 #ifdef __MSDOS__
 	memory = farcoreleft() - 40960;
-	pool = (unsigned char huge *) farmalloc ( memory );
+	pool = (char huge *) farmalloc ( memory );
 #else
 	memory = 307200;
-	pool = (unsigned char *) malloc (memory);
+	pool = (char *) malloc (memory);
 #endif
 
 
@@ -1862,4 +1877,6 @@ int	main ( int argc, char *argv[] )
 	}
 
 	fclose (infile);
+
+	return 0;
 }

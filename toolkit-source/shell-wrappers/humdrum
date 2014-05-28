@@ -1,3 +1,4 @@
+#!/bin/bash
 ###########################################################################
 # 							HUMDRUM
 #	This shell program receives input from the command line and after 
