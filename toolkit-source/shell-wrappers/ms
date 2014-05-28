@@ -25,38 +25,24 @@ OPTIONS=""
 MUP_OUT=""
 CHARSTRING=""
 
-if [ -z "$AWK_VER" ]
-then
-   if [ -f "/usr/bin/awk" ]
-   then
-      AWK_VER="/usr/bin/awk"
-   elif [ -f "/usr/bin/gawk" ]
-   then
-      AWK_VER="/usr/bin/gawk"
-   elif [ -f "/bin/awk" ]
-   then
-      AWK_VER="/bin/awk"
-   elif [ -f "/bin/gawk" ]
-   then
-      AWK_VER="/bin/gawk"
-   elif [ -f "/usr/sbin/awk" ]
-   then
-      AWK_VER="/usr/sbin/awk"
-   elif [ -f "/usr/sbin/gawk" ]
-   then
-      AWK_VER="/usr/sbin/gawk"
-   elif [ -f "/sbin/awk" ]
-   then
-      AWK_VER="/sbin/awk"
-   elif [ -f "/sbin/gawk" ]
-   then
-      AWK_VER="/sbin/gawk"
-   fi
-fi
-if [ -z "$TMPDIR" ]
+if [ -z $TMPDIR ]
 then
    TMPDIR=/tmp
 fi
+
+if [ -z $AWK_VER ]
+then
+   AWK_VER=`which awk`
+   if [ -z $AWK_VER ]
+   then
+      AWK_VER=`which gawk`
+   fi
+   if [ -z $AWK_VER ]
+   then
+      exit 1
+   fi
+fi
+
 #
 # Command usage:
 USAGE1="USAGE: ms -h                 (Help Screen)"

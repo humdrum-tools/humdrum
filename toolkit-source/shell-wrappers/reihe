@@ -27,34 +27,19 @@ USAGE5="       reihe [-RI|-ri] n [-a] [-m n] primefile"
 USAGE6="       reihe [-S|-s] n primefile"
 DUALCASE=1
 
-if [ -z "$AWK_VER" ]
+if [ -z $AWK_VER ]
 then
-   if [ -f "/usr/bin/awk" ]
+   AWK_VER=`which awk`
+   if [ -z $AWK_VER ]
    then
-      AWK_VER="/usr/bin/awk"
-   elif [ -f "/usr/bin/gawk" ]
+      AWK_VER=`which gawk`
+   fi
+   if [ -z $AWK_VER ]
    then
-      AWK_VER="/usr/bin/gawk"
-   elif [ -f "/bin/awk" ]
-   then
-      AWK_VER="/bin/awk"
-   elif [ -f "/bin/gawk" ]
-   then
-      AWK_VER="/bin/gawk"
-   elif [ -f "/usr/sbin/awk" ]
-   then
-      AWK_VER="/usr/sbin/awk"
-   elif [ -f "/usr/sbin/gawk" ]
-   then
-      AWK_VER="/usr/sbin/gawk"
-   elif [ -f "/sbin/awk" ]
-   then
-      AWK_VER="/sbin/awk"
-   elif [ -f "/sbin/gawk" ]
-   then
-      AWK_VER="/sbin/gawk"
+      exit 1
    fi
 fi
+
 for arg
 do
 	case "${arg}" in
