@@ -11,7 +11,7 @@ http://github.com/humdrum-tools/humdrum-tools-with-data.
 Further documentation about the Humdrum Toolkit as well 
 as installing and using it can be found at http://www.humdrum.org.
 
-Downloading the Humdrum Toolkit
+Downloading
 ===============================
 
 To download the Humdrum Toolkit package, go to the 
