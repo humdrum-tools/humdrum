@@ -16,6 +16,9 @@
 
 BINDIR = bin
 
+HUMDRUM_PATH    := $(shell echo $$PATH |tr : '\n'|grep 'humdrum/bin'|head -n 1)
+HUMDRUM_TARGET  := $(shell echo `pwd`/bin)
+
 all: awk shell help cprogs
 
 
@@ -42,10 +45,15 @@ help:
 	cp toolkit-source/helpscrn/* $(BINDIR)/helpscrn/
 
 
+# "make install" Will add the current humdrum/bin directory to the
+# .profile file in the user's home directory.  If the super user
+# is installing the Humdrum Toolkit, then they should instead manually
+# add the installation bin directory into the /etc/profile file.
+
 install:
 
 ifeq (,$(HUMDRUM_PATH))
-	echo "PATH=`pwd`/bin:\$$PATH" >> ~/.profile
+	echo "export PATH=`pwd`/bin:\$$PATH" >> ~/.profile
 	@echo "[0;32m"
 	@echo "*** `pwd`/bin added to command search path"
 	@echo "*** in ~/.profile.  Now either close this shell and restart"
@@ -59,7 +67,7 @@ ifeq (,$(HUMDRUM_PATH))
 	@echo "***     [0;31m`pwd`/bin/census[0;32m"
 	@echo "[0m"
 else ifneq ($HUMDRUM_PATH,$HUMDRUM_TARGET)
-	echo "PATH=`pwd`/bin:\$$PATH" >> ~/.profile
+	echo "export PATH=`pwd`/bin:\$$PATH" >> ~/.profile
 	@echo "[0;31m"
 	@echo "*** `pwd`/bin added to command search path"
 	@echo "*** in ~/.profile.  A different humdrum/bin directory already"
