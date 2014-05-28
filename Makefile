@@ -1,3 +1,7 @@
+
+
+
+
 .PHONY: all install humdrum clean
 
 TODAY = $(shell date "+%Y-%m-%d")
@@ -17,4 +21,18 @@ humdrum:
 
 clean:
 	for dir in toolkit/src/*; do $(MAKE) clean -C $$dir; done
+
+
+all: help
+
+
+help:
+	mkdir -p bin/helpscrn
+	cp -r toolkit/
+
+
+
+
+
+
 

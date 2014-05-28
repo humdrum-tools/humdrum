@@ -1,4 +1,4 @@
-This repository contains the "classical" humdrum toolkit.
+This repository contains the "classical" Humdrum Toolkit.
 Craig Sapp's humextra tools are now available on his [own github repository](https://github.com/craigsapp/humextra).
 There are no binaries, I'll have to compile the code.
 

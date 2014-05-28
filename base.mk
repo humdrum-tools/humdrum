@@ -1,5 +1,5 @@
 INSTALL_PROGRAM = install
-prefix = /usr/local/humdrum
+prefix = `pwd`
 bindir = bin
 
 CC = gcc
