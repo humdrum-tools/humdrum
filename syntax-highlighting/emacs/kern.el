@@ -1,3 +1,8 @@
+"
+" emacs syntax highlighting file
+" Programmer:	 Pedro Kroger
+"
+
 (defvar kern-mode-hook nil)
 
 (defvar kern-mode-map
