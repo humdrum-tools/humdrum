@@ -24,6 +24,35 @@ USAGE2="       extract -f field_list [file ...]"
 USAGE3="       extract -t tracefile [file ...]"
 USAGE4="       extract -i interpretation_list [file ...]"
 USAGE5="       extract -p spine_path [file ...]"
+
+if [ -z "$AWK_VER" ]
+then
+   if [ -f "/usr/bin/awk" ]
+   then
+      AWK_VER="/usr/bin/awk"
+   elif [ -f "/usr/bin/gawk" ]
+   then
+      AWK_VER="/usr/bin/gawk"
+   elif [ -f "/bin/awk" ]
+   then
+      AWK_VER="/bin/awk"
+   elif [ -f "/bin/gawk" ]
+   then
+      AWK_VER="/bin/gawk"
+   elif [ -f "/usr/sbin/awk" ]
+   then
+      AWK_VER="/usr/sbin/awk"
+   elif [ -f "/usr/sbin/gawk" ]
+   then
+      AWK_VER="/usr/sbin/gawk"
+   elif [ -f "/sbin/awk" ]
+   then
+      AWK_VER="/sbin/awk"
+   elif [ -f "/sbin/gawk" ]
+   then
+      AWK_VER="/sbin/gawk"
+   fi
+fi
 #
 while getopts f:hi:p:t: arg
 do

@@ -20,6 +20,35 @@ X_OPTION=""
 PVALUE=""
 USAGE1="USAGE: semits -h                (Help Screen)"
 USAGE2="       semits [-p n] [-tx] [file ...]"
+
+if [ -z "$AWK_VER" ]
+then
+   if [ -f "/usr/bin/awk" ]
+   then
+      AWK_VER="/usr/bin/awk"
+   elif [ -f "/usr/bin/gawk" ]
+   then
+      AWK_VER="/usr/bin/gawk"
+   elif [ -f "/bin/awk" ]
+   then
+      AWK_VER="/bin/awk"
+   elif [ -f "/bin/gawk" ]
+   then
+      AWK_VER="/bin/gawk"
+   elif [ -f "/usr/sbin/awk" ]
+   then
+      AWK_VER="/usr/sbin/awk"
+   elif [ -f "/usr/sbin/gawk" ]
+   then
+      AWK_VER="/usr/sbin/gawk"
+   elif [ -f "/sbin/awk" ]
+   then
+      AWK_VER="/sbin/awk"
+   elif [ -f "/sbin/gawk" ]
+   then
+      AWK_VER="/sbin/gawk"
+   fi
+fi
 # 
 while getopts hp:tx arg
 do

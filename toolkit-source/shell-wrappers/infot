@@ -16,12 +16,45 @@ FILENAME=""
 HELP=""
 FLAG=""
 STNDIN=""
+if [ -z "$TMPDIR" ]
+then
+   TMPDIR=/tmp
+fi
 #
 USAGE1="USAGE: infot -h                   (Help Screen)"
 USAGE2="       infot -b [-H] [-x regexp] [file ...]"
 USAGE3="       infot -n [-H] [-x regexp] [file ...]"
 USAGE4="       infot -p [-H] [-x regexp] [file ...]"
 USAGE5="       infot -s [-x regexp] [file ...]"
+
+if [ -z "$AWK_VER" ]
+then
+   if [ -f "/usr/bin/awk" ]
+   then
+      AWK_VER="/usr/bin/awk"
+   elif [ -f "/usr/bin/gawk" ]
+   then
+      AWK_VER="/usr/bin/gawk"
+   elif [ -f "/bin/awk" ]
+   then
+      AWK_VER="/bin/awk"
+   elif [ -f "/bin/gawk" ]
+   then
+      AWK_VER="/bin/gawk"
+   elif [ -f "/usr/sbin/awk" ]
+   then
+      AWK_VER="/usr/sbin/awk"
+   elif [ -f "/usr/sbin/gawk" ]
+   then
+      AWK_VER="/usr/sbin/gawk"
+   elif [ -f "/sbin/awk" ]
+   then
+      AWK_VER="/sbin/awk"
+   elif [ -f "/sbin/gawk" ]
+   then
+      AWK_VER="/sbin/gawk"
+   fi
+fi
 #
 DUALCASE=1
 while getopts bhHnpsx: arg

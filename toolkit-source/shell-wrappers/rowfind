@@ -23,6 +23,10 @@ then
 	echo "rowfind: ERROR: Input score file $1 not found."
 	exit
 fi
+if [ -z "$TMPDIR" ]
+then
+   TMPDIR=/tmp
+fi
 #
 # Also check that the set-variant files exist:
 if [ ! -f P0 ] || [ ! -f P1 ] || [ ! -f P2 ] || [ ! -f P3 ] || [ ! -f P4 ] || [ ! -f P5 ] || [ ! -f P6 ] || [ ! -f P7 ] || [ ! -f P8 ] || [ ! -f P9 ] || [ ! -f PA ] || [ ! -f PB ]
