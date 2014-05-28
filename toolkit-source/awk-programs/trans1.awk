@@ -69,7 +69,8 @@ BEGIN {
 	#if (ARGV[0] == "nawk") stderr = "/dev/tty"
 	#else stderr = "con"
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 	diatonic_reg = "^[+-]?[1-9][0-9]*$"
 	deviation = "[+-][1-9][0-9]*"
 	octave_class = "[0-9]"

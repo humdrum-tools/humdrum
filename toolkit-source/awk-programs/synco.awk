@@ -49,7 +49,8 @@ BEGIN {
 	# to the terminal always
 	#
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 	options = ""
 	cont_tie_reg = "\\]|_"
 	#

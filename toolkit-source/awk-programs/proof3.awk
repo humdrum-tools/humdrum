@@ -70,7 +70,8 @@ BEGIN {
 	TOL = 0.0001
 
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 
 	bar = 0
 	notnote = "[^ABCDEFGabcdefg]+"

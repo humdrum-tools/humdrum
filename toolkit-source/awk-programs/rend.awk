@@ -47,7 +47,8 @@ BEGIN {
 	#if (ARGV[0] == "nawk") stderr = "/dev/tty"
 	#else stderr = "con"
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 	options = ""
 	max_splits = 0
 	#

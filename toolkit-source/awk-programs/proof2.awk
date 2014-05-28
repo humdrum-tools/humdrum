@@ -62,7 +62,8 @@ BEGIN {
 	TOL = 0.0001
 
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 
 	firstbar = 0
 	secondbar = 0

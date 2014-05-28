@@ -19,7 +19,8 @@ BEGIN {
 	FS = OFS = "\t"
 	TRUE = 1; FALSE = 0
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 	#
 	# Some global variables
 	#

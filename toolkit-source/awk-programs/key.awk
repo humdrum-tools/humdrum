@@ -28,7 +28,8 @@ BEGIN {
 	# Set stderr to point to appropriat place for error output
 	#
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 	#
 	# Set the other global variables
 	#

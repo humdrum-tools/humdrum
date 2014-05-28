@@ -58,7 +58,8 @@ BEGIN {
 	#if (ARGV[0] == "nawk") stderr = "/dev/tty"
 	#else stderr = "con"
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 	FS = OFS = "\t"
 	TRUE = 1; FALSE = 0
 	#

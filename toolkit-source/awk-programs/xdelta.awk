@@ -74,7 +74,8 @@ BEGIN {
 	#if (ARGV[0] == "nawk") stderr = "/dev/tty"
 	#else stderr = "con"
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 	NUMBER = "[+-]?([0-9]+([.][0-9]+)?|[.][0-9]+)"
 	options = breg_exp = sreg_exp ""
 	previous_array[0] ;

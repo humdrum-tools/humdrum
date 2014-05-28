@@ -33,7 +33,8 @@ BEGIN {
 	# Set standard error to the appropriate 'file'
 	#
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 	#
 	# Other global variables
 	#

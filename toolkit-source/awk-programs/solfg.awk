@@ -85,7 +85,8 @@ BEGIN {
 	#if (ARGV[0] == "nawk") stderr = "/dev/tty"
 	#else stderr = "con"
 	"echo $CON" | getline stderr
-	close("echo $CON")
+	if (stderr == "") stderr = "/dev/tty"
+	close(stderr)
 	middle_C_freq = 261.625549
 	floating_pt_num = "[+-]?(([0-9]+(\\.[0-9]*)?)|((0*)?\\.[0-9]*))"
 	uftp = "(([0-9]+[.]?[0-9]*)|([0-9]*[.]?[0-9]+))"
