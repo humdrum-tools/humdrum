@@ -1,0 +1,183 @@
+#!/usr/bin/perl
+#
+# Programmer:    Craig Stuart Sapp <craig.stanford.edu>
+# Creation Date: Fri May 30 16:50:56 PDT 2014
+# Last Modified: Fri May 30 17:42:41 PDT 2014
+# Filename:      ...humdrum/tests/bin/run-command-tests
+# Syntax:        perl 5
+#
+# Description:   Run input/output tests for Humdrum Toolkit commands.
+#
+
+use strict;
+
+my $Tmpfile    = "output";
+my $TESTSCRIPT = "Test.script";
+
+my @commanddirs = @ARGV;
+
+my $dir;
+foreach $dir (@commanddirs) {
+   processTests($dir);
+}
+
+exit(0);
+
+###########################################################################
+
+##############################
+##
+## processTests -- Given a directory, read the test.script file in that
+##     directory and run the tests listed within it.
+##
+
+sub processTests {
+   my ($dir)  = @_;
+   my $command;
+   my @tests;
+   ($command, @tests) = getScriptInformation($dir);
+   my %resultfiles = getResultFiles($dir);
+   my $test;
+   my $resultname;
+   foreach $test (@tests) {
+      $resultname = runTest($dir, $command, $test);
+      if ($resultfiles{$resultname} > 0) {
+         print "WARNING: $command test $resultname rerun.\n";
+      }
+      $resultfiles{$resultname}++;
+   }
+
+   # Check to see that all result files were tested from the script:
+   foreach $test (keys %resultfiles) {
+      if ($resultfiles{$test} == 0) {
+         print "WARNING: $command test $test not processed.\n";
+      }
+   }
+}
+
+
+
+##############################
+##
+## runTest -- Run a particular test
+##
+
+sub runTest {
+   my ($dir, $command, $test) = @_;
+   my %testinfo = getTestInfo($dir, $command, $test);
+   my $action = $testinfo{'ACTION'};
+   my $resultfile = "result$testinfo{'NUMBER'}";
+   `(cd $dir; $action > $Tmpfile)`;
+   my $result = `(cd $dir; diff $resultfile $Tmpfile; rm $Tmpfile)`;
+   if ($result !~ /^\s*$/) {
+      print "ERROR in test\n";
+   } else {
+      print "OK\n";
+   }
+   return $resultfile;
+}
+
+
+
+##############################
+##
+## getTestInfo -- Break out the parameters in the test script.
+##
+
+sub getTestInfo {
+   my ($dir, $command, $text);
+   my @lines = split(/\n/, $text);
+   my %output;
+   $output{'COMMAND'} = $command;
+   my ($key, $key2, $value, $line);
+   foreach $line (@lines) {
+      if ($line !~ /^\@([^\s:]+)\s*:\s*(.*)\s*$/) {
+         next;
+      }
+      $key    = $1;
+      $value  = $2;
+      $output{$key} = $value;
+   }
+
+   foreach $key (keys %output) {
+      while ($output{$key} =~ /^\@([A-Z]+)/) {
+         $key2 = $1;
+         $output{$key} =~ s/\@$key2/$output{$key2}/g;
+      }
+   }
+  
+   if ($output{'NUMBER'} =~ /^\s*$/) {
+      die "ERROR: $command: Test does not have a number\n$text\n";
+   }
+   $output{'RESULT'}="result$output{'NUMBER'}" if $output{'RESULT'} =~ /^\s*$/;
+   if ($output{'ACTION'} =~ /^\s*$/) {
+      my $testfile = "test$output{'NUMBER'}";
+      if (!-f "$dir/$testfile") {
+         die "ERROR: $command testfile $testfile does not exist.";
+      }
+      $output{'ACTION'} = "$command $testfile";
+   }
+
+   return %output;
+}
+
+
+
+##############################
+##
+## getScriptInformation -- Load the test script for a single command directory.
+##
+
+sub getScriptInformation {
+   my ($dir) = @_;
+   my $command = "";
+   my @tests;
+   open(SCRIPT, "$dir/$TESTSCRIPT") or die "Cannot read test script for $dir";
+   my ($key, $value, $line);
+   my $currentTest = "";
+   while ($line = <SCRIPT>) {
+      if ($line !~ /^\@([^\s:]+)\s*:\s*(.*)\s*$/) {
+         next;
+      }
+      $key   = $1;
+      $value = $2;
+      if ($key eq "BEGIN" and $value eq "TEST") {
+         $currentTest = "" 
+      }
+      if ($key eq "END" and $value eq "TEST") {
+         $tests[@tests] = $currentTest;
+         $currentTest = "";
+         next;
+      }
+      $currentTest .= $line;
+   }
+   close SCRIPT;
+   return ($command, @tests);
+}
+
+
+
+##############################
+##
+## getResultFiles -- return a list of all files that start with 
+##    "result" and end with a number followed by any text.  The text
+##    after "result" should match to a test entry in the test.script file.
+##    If there is a result file with no entry in the test.script file,
+##    a warning will be printed.
+##
+
+sub getResultFiles {
+   my ($dir) = @_;
+   opendir(DIR, $dir) or die "Cannot open directory $dir for reading.";
+   my %output;
+   while (my $file = readdir(DIR)) {
+      next if $file =~ /^\./;
+      next if $file !~ /^result(\d.*)/;
+      $output{$file} = 0;
+   }
+   closedir(DIR);
+   return %output;
+}
+
+
+

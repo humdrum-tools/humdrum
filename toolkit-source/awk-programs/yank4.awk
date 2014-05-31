@@ -111,7 +111,12 @@ if (FNR == 1)
 	# expressions in the current input file
 	#
 	("echo $TMPDIR/temp-$$-" ++i) | getline tmpname
-	system("$AWK_VER -f ${HUMDRUM}/bin/findpair.awk '" REGEXP1 "' '" REGEXP2 "' " FILENAME " > " tmpname)
+
+        "echo $HUMDRUM" | humdrum_dir
+	if (humdrum_dir == "") {
+		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | sed 's/\/bin//'" | getline humdrum_dir
+	}
+	system("$AWK_VER -f " humdrum_dir "/bin/findpair.awk '" REGEXP1 "' '" REGEXP2 "' " FILENAME " > " tmpname)
 	#
 	# Store the numbers in the array possible_lines
 	#

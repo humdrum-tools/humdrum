@@ -15,6 +15,7 @@ STNDIN=""
 DOUBLE_DASH=""
 USAGE1="USAGE: humdrum -h|-?              (Help Screen)"
 USAGE2="       humdrum [-v] [file ...]"
+
 while [ "$#" -ne 0 ]
 do
 	case $1 in

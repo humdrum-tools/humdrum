@@ -23,6 +23,12 @@ USAGE1="USAGE: rid -h                   (Help Screen)"
 USAGE2="       rid [-dgiluDGILTU] [file ...]"
 # 
 DUALCASE=1
+
+if [ -z $HUMDRUM ]
+then
+   HUMDRUM=`echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin$//'`
+fi
+
 while getopts dDgGhiIlLTuU arg
 do
 	case "$arg" in

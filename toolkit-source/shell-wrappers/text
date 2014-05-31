@@ -18,6 +18,12 @@ STNDIN=""
 USAGE1="USAGE: text -h                (Help Screen)"
 USAGE2="       text [-p] [-s reg_exp] [-c chars] [file ...]"
 USAGE2="       text [-f n] [file ...]"
+
+if [ -z $HUMDRUM ]
+then
+   HUMDRUM=`echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin$//'`
+fi
+
 while getopts :hf: arg
 do
 	case "$arg" in

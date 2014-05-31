@@ -40,6 +40,11 @@ then
    fi
 fi
 
+if [ -z $HUMDRUM ]
+then
+   HUMDRUM=`echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin$//'`
+fi
+
 for arg
 do
 	case "${arg}" in

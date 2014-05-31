@@ -37,6 +37,11 @@ then
    fi
 fi
 
+if [ -z $HUMDRUM ]
+then
+   HUMDRUM=`echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin$//'`
+fi
+
 #
 # Fill in the appropriate command usage here
 USAGE1="USAGE: patt -h                   (Help Screen)"

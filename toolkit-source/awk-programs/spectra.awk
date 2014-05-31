@@ -42,6 +42,10 @@ BEGIN {
 	#echo "$HUMDRUM > $TMPDIR/humdir.tmp"
 	
 	"echo $HUMDRUM" | getline humdrum_dir
+	if (humdrum_dir == "") {
+		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | sed 's/\/bin//'" | getline humdrum_dir
+	}
+        
 }
 {
 # Process Exclusive and Tandem Interpretations

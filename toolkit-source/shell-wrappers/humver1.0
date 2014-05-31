@@ -27,6 +27,12 @@ do
 	esac
 done
 shift `expr $OPTIND - 1`
+
+if [ -z $HUMDRUM ]
+then
+   HUMDRUM=`echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin$//'`
+fi
+
 #
 # If no parameters were specified, print out a help screen
 #

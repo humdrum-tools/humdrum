@@ -92,7 +92,11 @@ if (FNR == 1)
 	# "cat $TMPDIR/yank5$" | getline max_occurrences
 	# close("cat $TMPDIR/yank5$")
 	#max_occurrences = max_occurrences + 0
-    ("$AWK_VER -f ${HUMDRUM}/bin/number.awk '" LABEL "' " FILENAME ) | getline max_occurrences
+        "echo $HUMDRUM" | humdrum_dir
+	if (humdrum_dir == "") {
+		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | sed 's/\/bin//'" | getline humdrum_dir
+	}
+    ("$AWK_VER -f "humdrum_dir "/bin/number.awk '" LABEL "' " FILENAME ) | getline max_occurrences
 	determine_range(RANGE,max_occurrences)
 	}
 #

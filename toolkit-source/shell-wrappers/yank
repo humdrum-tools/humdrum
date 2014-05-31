@@ -44,6 +44,11 @@ then
    fi
 fi
 
+if [ -z $HUMDRUM ]
+then
+   HUMDRUM=`echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin$//'`
+fi
+
 #
 USAGE1="USAGE: yank -h                       (Help Screen)"
 USAGE2="       yank -l -r range [-c] [file ...]"
