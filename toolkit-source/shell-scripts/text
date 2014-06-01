@@ -1,5 +1,7 @@
 ###################################################################
-#                           TEXT
+#
+# TEXT
+#
 # Programmed by: David Huron        Date: July 11, 1995
 # Copyright (c) 1995 David Huron
 #
@@ -16,6 +18,12 @@ FLAG=""
 STNDIN=""
 USAGE1="USAGE: text -h                (Help Screen)"
 USAGE2="       text [-f n] [file ...]"
+
+if [ -z $HUMDRUM ]
+then
+   HUMDRUM=`echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin$//'`
+fi
+
 while getopts :hf: arg
 do
 	case "$arg" in
