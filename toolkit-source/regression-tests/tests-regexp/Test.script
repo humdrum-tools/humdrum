@@ -1,0 +1,10 @@
+# Humdrum Toolkit test script.
+
+@COMMAND: regexp
+
+@BEGIN:	TEST
+@NUMBER:	01
+@DESCRIPTION:	Basic test to see if the program runs
+@ACTION:	echo 'b.?[aeiou]' | @COMMAND test@NUMBER 
+@END:	TEST
+

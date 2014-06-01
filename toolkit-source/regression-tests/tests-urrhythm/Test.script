@@ -1,0 +1,9 @@
+# Humdrum Toolkit test script.
+
+@COMMAND: urrhythm
+
+@BEGIN:	TEST
+@NUMBER:	01
+@DESCRIPTION:	Basic test to see if the program runs
+@END:	TEST
+

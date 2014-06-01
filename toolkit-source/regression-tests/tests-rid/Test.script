@@ -1,0 +1,114 @@
+# Humdrum Toolkit test script.
+
+@COMMAND: rid
+
+@BEGIN:	TEST
+@NUMBER:	01
+@DESCRIPTION:	Test -D option
+@ACTION:	@COMMAND -D test@NUMBER
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	02
+@DESCRIPTION:	Test -G option
+@ACTION:	@COMMAND -G test01
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	03
+@DESCRIPTION:	Test -I option
+@ACTION:	@COMMAND -I test01
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	04
+@DESCRIPTION:	Test -L option
+@ACTION:	@COMMAND -L test01
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	05
+@DESCRIPTION:	Test -d option
+@ACTION:	@COMMAND -d test01
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	06
+@DESCRIPTION:	Test -g option
+@ACTION:	@COMMAND -g test01
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	07
+@DESCRIPTION:	Test -i option
+@ACTION:	@COMMAND -i test01
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	08
+@DESCRIPTION:	Test -l option
+@ACTION:	@COMMAND -l test01
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	09
+@DESCRIPTION:	Test all options together
+@ACTION:	@COMMAND -dgilDGIL test01
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	10
+@DESCRIPTION:	Test on a totally empty file
+@ACTION:	@COMMAND -dgil test02
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	11
+@DESCRIPTION:	Test on standard input
+@ACTION:	cat test01 test03 | @COMMAND -GL -
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	12
+@DESCRIPTION:	Test 2 files specified on command line
+@ACTION:	@COMMAND -GL test01 test03
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	13
+@DESCRIPTION:	Test 13
+@ACTION:	@COMMAND -GL -- -test@NUMBER
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	14
+@DESCRIPTION:	Test file containing only global comments
+@ACTION:	@COMMAND -G test@NUMBER
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	15
+@DESCRIPTION:	Test of -U option
+@ACTION:	@COMMAND -U test@NUMBER
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	16
+@DESCRIPTION:	Test of -u option
+@ACTION:	@COMMAND -u test@NUMBER
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	17
+@DESCRIPTION:	Test of -T option
+@ACTION:	@COMMAND -T test@NUMBER
+@END:	TEST
+
+@BEGIN:	TEST
+@NUMBER:	18
+@DESCRIPTION:	Test of -U with -T option
+@ACTION:	@COMMAND -U -T test@NUMBER
+@END:	TEST
+
+
+

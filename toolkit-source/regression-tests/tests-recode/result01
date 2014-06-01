@@ -1,0 +1,20 @@
+**kern	**abc
+16g	zero
+8.g	zero
+16g	one
+=1	=1
+4cc	two
+4cc	<=3
+4ee	???
+4ee	negative
+=2	=2
+4.gg	>4
+8ee	<=3
+8.cc	<=3
+16cc	xoneX
+8.ee	xonex2x
+16cc	one two
+=3	=3
+4a	.
+4r	r
+*-	*-

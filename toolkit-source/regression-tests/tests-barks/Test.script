@@ -1,0 +1,11 @@
+# Humdrum Toolkit test script.
+
+@COMMAND: barks
+
+@BEGIN:	TEST
+@NUMBER:	01
+@DESCRIPTION:	Basic test to see if the program runs
+@ACTION:	freq test@NUMBER | @COMMAND
+@END:	TEST
+
+

@@ -1,0 +1,3 @@
+**octave	[0-9]
+**note	[A-Gb#x]+
+**accidental	[b#x]+

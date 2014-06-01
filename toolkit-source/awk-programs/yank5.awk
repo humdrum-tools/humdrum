@@ -96,7 +96,14 @@ if (FNR == 1)
 	if (humdrum_dir == "") {
 		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | sed 's/\/bin//'" | getline humdrum_dir
 	}
-    ("$AWK_VER -f "humdrum_dir "/bin/number.awk '" LABEL "' " FILENAME ) | getline max_occurrences
+	"echo $AWK_VER" | getline awkver
+	if (awkver == "") {
+		"which awk" | getline awkver
+	}
+	if (awkver == "") {
+		"which gawk" | getline awkver
+	}
+	( awkver " -f "humdrum_dir "/bin/number.awk '" LABEL "' " FILENAME ) | getline max_occurrences
 	determine_range(RANGE,max_occurrences)
 	}
 #

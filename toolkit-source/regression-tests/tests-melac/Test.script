@@ -1,0 +1,10 @@
+# Humdrum Toolkit test script.
+
+@COMMAND: melac
+
+@BEGIN:	TEST
+@NUMBER:	01
+@DESCRIPTION:	Basic test to see if the program runs
+@ACTION:	semits -x test@NUMBER  | @COMMAND
+@END:	TEST
+

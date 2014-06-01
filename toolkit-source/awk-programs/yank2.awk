@@ -111,8 +111,23 @@ if (FNR == 1)
 	# Use the program 'find_reg.awk' in order to get a list of the number
 	# of data records between each set of regular expression records
 	#
-	("echo $TMPDIR/temp-$$-" ++i) | getline tmpname
-   	system("$AWK_VER -f ${HUMDRUM}/bin/find_reg.awk '" REGEXP "' " FILENAME " > " tmpname)
+	"echo $TMPDIR" | getline tmpdir
+	if (tmpdir == "") {
+		tmpdir = "/tmp"
+	}
+        "echo $HUMDRUM" | humdrum_dir
+	if (humdrum_dir == "") {
+		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | sed 's/\/bin//'" | getline humdrum_dir
+	}
+	"echo $AWK_VER" | getline awkver
+	if (awkver == "") {
+		"which awk" | getline awkver
+	}
+	if (awkver == "") {
+		"which gawk" | getline awkver
+	}
+	("echo tmpdir "/temp-$$-" ++i) | getline tmpname
+   	system(awkver " -f " humdrum_dir "/bin/find_reg.awk '" REGEXP "' " FILENAME " > " tmpname)
 	#
 	# Store the values in the array number_of_lines
 	#

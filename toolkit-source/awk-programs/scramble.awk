@@ -59,10 +59,14 @@ BEGIN {
 	#
 	# Create a temporary file for sorting records with -r option
 	#
+	"echo $TMPDIR" getline tmpdir
+	if (tmpdir == "") {
+		tmpdir = "/tmp"
+	}
 	if (options ~ /r/)
 		{
-		"echo $TMPDIR/scr001" | getline output_file
-		close("echo $TMPDIR/scr001")
+		"echo " tmpdir "/scr001" | getline output_file
+		close("echo " tmpdir "/scr001")
 		printf("") > output_file
 		}
 	}

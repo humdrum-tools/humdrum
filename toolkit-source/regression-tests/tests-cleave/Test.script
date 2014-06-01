@@ -1,0 +1,10 @@
+# Humdrum Toolkit test script.
+
+@COMMAND: cleave
+
+@BEGIN:	TEST
+@NUMBER:	01
+@DESCRIPTION:	Basic test to see if the program runs
+@ACTION:	@COMMAND -i '**recip,**kern' -o '**kern'  -r test@NUMBER
+@END:	TEST
+

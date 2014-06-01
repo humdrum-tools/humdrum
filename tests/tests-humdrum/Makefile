@@ -1,8 +1,0 @@
-# Makefile to run command tests.
-
-BINDIR = ../bin
-COMMAND = $(BINDIR)/run-command-tests
-
-all:
-	$(COMMAND) ./
-

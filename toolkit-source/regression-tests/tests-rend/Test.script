@@ -1,0 +1,10 @@
+# Humdrum Toolkit test script.
+
+@COMMAND: rend
+
+@BEGIN:	TEST
+@NUMBER:	01
+@DESCRIPTION:	Basic test to see if the program runs
+@ACTION:	@COMMAND -i '**pitch' -f test@NUMBER.reassign test@NUMBER
+@END:	TEST
+

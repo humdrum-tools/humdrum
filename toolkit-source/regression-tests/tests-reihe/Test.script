@@ -1,0 +1,10 @@
+# Humdrum Toolkit test script.
+
+@COMMAND: reihe
+
+@BEGIN:	TEST
+@NUMBER:	01
+@DESCRIPTION:	Basic test to see if the program runs
+@ACTION:	semits -x input@NUMBER  | pc | @COMMAND -p 2
+@END:	TEST
+

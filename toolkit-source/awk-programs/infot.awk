@@ -48,6 +48,9 @@ BEGIN {
 	# Open a temporary file
 	#
 	"echo $TMPDIR/infotok" | getline file1
+	if (file1 == "") {
+		file1 = "/tmp"
+	}
 	close("echo $TMPDIR/infotok")
 	}
 {

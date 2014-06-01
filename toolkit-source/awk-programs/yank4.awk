@@ -110,13 +110,24 @@ if (FNR == 1)
 	# Use the program 'findpair.awk' to find all pairs of regular
 	# expressions in the current input file
 	#
+	"echo $TMPDIR" | getline tmpdir
+	if (tmpdir == "") {
+		tmpdir = "/tmp"
+	}
 	("echo $TMPDIR/temp-$$-" ++i) | getline tmpname
 
         "echo $HUMDRUM" | humdrum_dir
 	if (humdrum_dir == "") {
 		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | sed 's/\/bin//'" | getline humdrum_dir
 	}
-	system("$AWK_VER -f " humdrum_dir "/bin/findpair.awk '" REGEXP1 "' '" REGEXP2 "' " FILENAME " > " tmpname)
+	"echo $AWK_VER" | getline awkver
+	if (awkver == "") {
+		"which awk" | getline awkver
+	}
+	if (awkver == "") {
+		"which gawk" | getline awkver
+	}
+	system(awkver " -f " humdrum_dir "/bin/findpair.awk '" REGEXP1 "' '" REGEXP2 "' " FILENAME " > " tmpname)
 	#
 	# Store the numbers in the array possible_lines
 	#

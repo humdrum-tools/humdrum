@@ -1,0 +1,10 @@
+# Humdrum Toolkit test script.
+
+@COMMAND: pitch
+
+@BEGIN:	TEST
+@NUMBER:	01
+@DESCRIPTION:	Basic test to see if the program runs
+@ACTION:	freq -x test@NUMBER  | @COMMAND
+@END:	TEST
+

@@ -308,7 +308,11 @@ function process_section_label(   good_record,label)
 			{
 			#"echo $TMPDIR/thru" section_count | getline output_file
 			#close("echo $TMPDIR/thru" section_count)
-			cmd = "echo $TMPDIR/thru-$$-" section_count
+			"echo $TMPDIR" | getline tmpdir
+			if (tmpdir == "") {
+				tmpdir = "/tmp"
+			}
+			cmd = "echo " tmpdir "/thru-$$-" section_count
 			cmd | getline output_file
 			close(cmd)
 

@@ -95,7 +95,15 @@ if (FNR == 1)
 	#"cat $TMPDIR/linenum" i | getline no_of_lines
 	#no_of_lines = no_of_lines + 0
 	#system("rm $TMPDIR/linenum" i)
-	  cmd = "$AWK_VER 'END{print NR}' " FILENAME
+	"echo $AWK_VER" | getline awkver
+	if (awkver == "") {
+		"which awk" | getline awkver
+	}
+	if (awkver == "") {
+		"which gawk" | getline awkver
+	}
+
+	  cmd = awkver " 'END{print NR}' " FILENAME
 	  cmd | getline no_of_lines
 	  close(cmd)
 	#

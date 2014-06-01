@@ -1,0 +1,10 @@
+# Humdrum Toolkit test script.
+
+@COMMAND: trans
+
+@BEGIN:	TEST
+@NUMBER:	01
+@DESCRIPTION:	Basic test to see if the program runs
+@ACTION:	@COMMAND -c 2 -d 1 test@NUMBER
+@END:	TEST
+
