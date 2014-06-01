@@ -129,7 +129,7 @@ function process_tandem(   meter,numerator)
 		if ($kern_spine ~ meter_sig)
 			{
 			meter = $kern_spine
-			gsub("*M","",meter)
+			gsub("\\*M","",meter)
 			numerator = meter		  # Find the metric numerator ...
 			gsub("\/.*","",numerator)  # ... by eliminating the denominator.
 			#

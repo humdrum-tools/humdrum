@@ -27,7 +27,7 @@ all:
 	@echo "make install    -- Add bin directoy in command path."
 	@echo "make clean      -- Delete bin directory."
 
-bin: awk shell help cprogs
+bin: awk shell help cprogs support
 
 
 cprogs:

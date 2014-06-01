@@ -174,7 +174,7 @@ BEGIN {
 						if ($k ~ PH_KEY_SIGNATURE)
 						{
 							token = $k
-							gsub(/*K\[/,"",token); gsub(/\]/,"",token)
+							gsub(/\\*K\[/,"",token); gsub(/\]/,"",token)
 							split(token,array,"[n#x-]")
 							for (i in array) if (array[i] == "") delete array[i]
 							for (i in array)

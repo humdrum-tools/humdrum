@@ -116,8 +116,11 @@ if (FNR == 1)
 	}
 	("echo $TMPDIR/temp-$$-" ++i) | getline tmpname
 
-        "echo $HUMDRUM" | humdrum_dir
+	#
+
+        "echo $HUMDRUM" | getline humdrum_dir
 	if (humdrum_dir == "") {
+	
 		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | sed 's/\/bin//'" | getline humdrum_dir
 	}
 	"echo $AWK_VER" | getline awkver

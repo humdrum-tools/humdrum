@@ -315,7 +315,7 @@ function store_new_interps(      j,i)
 				{
 				timebase = $j
 				output_timebase = YES
-				gsub("*tb","",timebase)
+				gsub("\\*tb","",timebase)
 				if (timebase+0 > 16) print "synco: WARNING: Time-base very"\
 				" short; listener's temporal resolution exceeded?" > stderr
 				}

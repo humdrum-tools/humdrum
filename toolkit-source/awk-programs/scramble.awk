@@ -46,8 +46,7 @@ BEGIN {
 	#if (ARGV[0] == "nawk") stderr = "/dev/tty"
 	#else stderr = "con"
 	"echo $CON" | getline stderr
-	if (stderr == "") stderr = "/dev/tty"
-	close(stderr)
+	close("echo $CON")
 	regexp = ""
 	options = ""
 	error = FALSE
@@ -59,14 +58,10 @@ BEGIN {
 	#
 	# Create a temporary file for sorting records with -r option
 	#
-	"echo $TMPDIR" getline tmpdir
-	if (tmpdir == "") {
-		tmpdir = "/tmp"
-	}
 	if (options ~ /r/)
 		{
-		"echo " tmpdir "/scr001" | getline output_file
-		close("echo " tmpdir "/scr001")
+		"echo $TMPDIR/scr001" | getline output_file
+		close("echo $TMPDIR/scr001")
 		printf("") > output_file
 		}
 	}
