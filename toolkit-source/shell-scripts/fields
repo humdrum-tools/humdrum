@@ -109,5 +109,9 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 # Invoke fields.awk with the specified options.
 $AWK_VER -f ${HUMDRUM}/bin/fields.awk "DUMMY" "${OPTIONS:-null}" "${REGEXP:-null}" $FILENAME

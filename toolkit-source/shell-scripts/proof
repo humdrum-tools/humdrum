@@ -95,6 +95,10 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 ${AWK_VER} -f ${HUMDRUM}/bin/proof1.awk "dummy" "${OPTIONS:-null}" $FILENAME
 ${AWK_VER} -f ${HUMDRUM}/bin/proof2.awk "dummy" "${OPTIONS:-null}" $FILENAME
 ${AWK_VER} -f ${HUMDRUM}/bin/proof3.awk "dummy" "${OPTIONS:-null}" $FILENAME

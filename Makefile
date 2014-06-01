@@ -12,7 +12,7 @@
 ## This can be done automatically with the command "make install".
 ##
 
-.PHONY: all awk shell help clean cprogs install bin regression
+.PHONY: all awk shell help clean cprogs install bin regression support
 
 BINDIR = bin
 
@@ -45,12 +45,17 @@ awk:
 
 shell:
 	mkdir -p $(BINDIR)
-	cp toolkit-source/shell-wrappers/* $(BINDIR)/
+	cp toolkit-source/shell-scripts/* $(BINDIR)/
 
 
 help:
 	mkdir -p $(BINDIR)/helpscrn
 	-cp toolkit-source/helpscrn/* $(BINDIR)/helpscrn/
+
+
+support:
+	mkdir -p $(BINDIR)
+	-cp toolkit-source/support-files/* $(BINDIR)
 
 
 # "make regression" will test install programs to see if they

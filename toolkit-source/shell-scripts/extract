@@ -153,6 +153,10 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 # Depending on which option was specified, invoke proper extract program
 case $OPTION in	
 	f) $AWK_VER -f ${HUMDRUM}/bin/extract1.awk "DUMMY" "$LIST" $FILENAME ;;

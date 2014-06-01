@@ -94,5 +94,9 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 # Invoke pcset.awk with the specified options.
 $AWK_VER -f ${HUMDRUM}/bin/pcset.awk "DUMMY" "${OPTIONS:-null}" $FILENAME

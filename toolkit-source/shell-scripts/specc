@@ -90,6 +90,10 @@ do
 		shift
 	fi
 done	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 # If only invalid files specified, exit
 if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then

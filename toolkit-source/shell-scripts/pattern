@@ -116,5 +116,9 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 # Invoke pattern.awk with the specified options.
 $AWK_VER -f ${HUMDRUM}/bin/pattern.awk "DUMMY" "${OPTIONS:-null}" "$TEMPLATE" "${REGEXP:-null}" $FILENAME

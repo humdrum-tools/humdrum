@@ -91,4 +91,8 @@ if [ -z "$FILENAME" -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 $AWK_VER -f ${HUMDRUM}/bin/diss.awk $FILENAME

@@ -131,4 +131,8 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 $AWK_VER -f ${HUMDRUM}/bin/recode.awk "DUMMY" "${OPTIONS:-null}" "${REG_EXP:-null}" "$INTERP" "$REASSIGN" $FILENAME

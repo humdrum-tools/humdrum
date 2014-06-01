@@ -110,5 +110,9 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 # Invoke timebase.awk with the specified options.
 $AWK_VER -f ${HUMDRUM}/bin/timebase.awk "DUMMY" "${OPTIONS:-null}" "$TOPTION" "$MOPTION" "$mOPTION" $FILENAME

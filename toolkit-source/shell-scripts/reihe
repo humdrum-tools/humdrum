@@ -169,4 +169,8 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 $AWK_VER -f ${HUMDRUM}/bin/reihe.awk "DUMMY" "${COMMAND:-null}" "${OPTIONS:-null}" "${INTEGER:-null}" "${MODULO:-null}" $FILENAME

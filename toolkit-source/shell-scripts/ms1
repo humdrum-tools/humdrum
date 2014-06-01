@@ -145,6 +145,10 @@ then
 	exit
 fi	
 
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 if [ "X$MUP_OUT" = XON ]
 then
 	$AWK_VER -f $HUMDRUM/bin/ms1a.awk $FILENAME | context -e = | $AWK_VER -f $HUMDRUM/bin/ms1b.awk OPTIONS=$OPTIONS SIZE=$SIZE STAFF=$STAFF | $AWK_VER -f $HUMDRUM/bin/ms1c.awk

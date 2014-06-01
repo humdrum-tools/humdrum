@@ -110,5 +110,9 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 # Invoke dur.awk with the specified options.
 $AWK_VER -f ${HUMDRUM}/bin/dur.awk "DUMMY" "${OPTIONS:-null}" "${TEMPO_TYPE:-null}" "${TEMPO:-null}" $FILENAME

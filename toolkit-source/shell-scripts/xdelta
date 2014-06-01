@@ -99,5 +99,9 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 # Invoke xdelta.awk with the specified options.
 $AWK_VER -f ${HUMDRUM}/bin/xdelta.awk "DUMMY" "${OPTIONS:-null}" "${BREG_EXP:-null}" "${SREG_EXP:-null}" $FILENAME

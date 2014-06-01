@@ -153,4 +153,8 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 $AWK_VER -f ${HUMDRUM}/bin/num.awk "DUMMY" "${OPTIONS:-null}" "$ATTACH" "$INCREMENT" "$NUMBER" "$offset" "$OFFSET" "$resume" "$RESUME" "$suspend" "$SUSPEND" "$EXCLUDE" "$reset" "$RESET" "$position" "$POSITION" $FILENAME

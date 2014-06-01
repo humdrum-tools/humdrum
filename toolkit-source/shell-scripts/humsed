@@ -94,7 +94,11 @@ then
 	then
 		shift
 	fi
-fi
+fi 
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 if [ "$#" -ne 0 ]
 then
 	while [ "$#" -ne 0 ]

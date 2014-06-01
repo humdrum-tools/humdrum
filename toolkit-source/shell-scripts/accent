@@ -1,8 +1,6 @@
 #!/bin/sh
 ###################################################################
-#
-# ACCENT
-#
+#                            ACCENT
 # Programmed by: David Huron        Date: 1996 May 9
 # Copyright (c) 1996 David Huron
 #
@@ -29,6 +27,20 @@ FLAG=""
 STNDIN=""
 USAGE1="USAGE: accent -h                (Help Screen)"
 USAGE2="       accent [-i] [file ...]"
+# 
+#while getopts hi arg
+#do
+#	case "$arg" in
+#	h) 	HELP="ON";;
+#	i)	OPTIONS="$OPTIONS${arg}";;
+#     [?]) echo "" 1>&2
+#		echo "$USAGE1" 1>&2
+#		echo "$USAGE2" 1>&2
+#		exit ;;
+#	esac
+#done
+#shift `expr $OPTIND - 1`
+# 
 
 if [ -z $TMPDIR ]
 then
@@ -52,21 +64,6 @@ if [ -z $HUMDRUM ]
 then
    HUMDRUM=`echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin$//'`
 fi
-
-# 
-#while getopts hi arg
-#do
-#	case "$arg" in
-#	h) 	HELP="ON";;
-#	i)	OPTIONS="$OPTIONS${arg}";;
-#     [?]) echo "" 1>&2
-#		echo "$USAGE1" 1>&2
-#		echo "$USAGE2" 1>&2
-#		exit ;;
-#	esac
-#done
-#shift `expr $OPTIND - 1`
-# 
 if [ -n "$HELP" ]
 then
 	if [ -f ${HUMDRUM}/bin/helpscrn/accent.hlp ]
@@ -124,11 +121,6 @@ fi
 # Ensure that only one spine is present:
 
 SPINE=`humdrum -v $FILENAME | grep 'Maximum' | sed 's/	.*//; s/.* //'`
-# In case "humdrum -v" doesn't work, use the less reliable "grep" approach.
-if [ x$SPINE = x ]
-then
-	SPINE=`grep '^\*\*' $FILENAME | awk '{print NF}'`
-fi
 #echo "SPINES: " $SPINE
 
 if [ x$SPINE != x1 ]
@@ -171,6 +163,7 @@ sh deg -t $FILENAME | sed 's/[v^]//' > $TMPDIR/$PROCESS.deg
 #                        ~=tenuto     s=spiccato    "=pizzicato
 
 #assemble $TMPDIR/$PROCESS.dur $TMPDIR/$PROCESS.mac $TMPDIR/$PROCESS.mp $TMPDIR/$PROCESS.deg > blat2
+
 assemble $TMPDIR/$PROCESS.dur $TMPDIR/$PROCESS.mac $TMPDIR/$PROCESS.mp $TMPDIR/$PROCESS.deg | $AWK_VER '
 BEGIN	{
 	# Define some constants.

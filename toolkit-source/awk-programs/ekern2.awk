@@ -427,9 +427,9 @@ if ($0 ~/^MEL/ || mel_processing) # The "MEL" keyword denotes the pitch and
 				       # records only), and identify.
 
 	# Before splitting up measures, check for ties that cross barlines.
-	if ($0 ~ /  ^/)
+	if ($0 ~ /  \^/)
 		{
-		gsub("  ^","[  ^",$0)
+		gsub("  \\^", "[  ^", $0)
 		}
 
 	# Most measures are separated by two spaces.
@@ -446,7 +446,7 @@ if ($0 ~/^MEL/ || mel_processing) # The "MEL" keyword denotes the pitch and
 		# separated by a space.
 		gsub("[-+(0-7^]"," &",array[i])
 		gsub("- ","-",array[i])
-		gsub("+ ","+",array[i])
+		gsub("\\+ ","+",array[i])
 		gsub("\\( ","(",array[i])
 		no_of_notes = split(array[i],notes," ") # Split apart notes.
 
@@ -606,7 +606,7 @@ function calculate_pitch(note)
 	# (4) Identify whether the pitch is in the principal octave,
 	#     or the higher or lower octave.
 	octave = "principal"
-	count = gsub("+","",note)
+	count = gsub("\\+","",note)
 	if (count == 1) octave = "higher"
 	if (count == 2) octave = "highest"
 	count = gsub("-","",note)

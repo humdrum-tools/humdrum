@@ -1,0 +1,1 @@
+This regression does not work with Apple OS X verision of awk.

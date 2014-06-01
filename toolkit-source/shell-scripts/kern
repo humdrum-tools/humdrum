@@ -94,6 +94,10 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 if [ "X$X_OPTION" = X ]
 then
 	$AWK_VER -f ${HUMDRUM}/bin/kern.awk "DUMMY" $FILENAME

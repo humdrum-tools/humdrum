@@ -98,6 +98,10 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 if [ "X$P_OPTION" = X ]
 then
 	$AWK_VER -f ${HUMDRUM}/bin/x_option.awk "DUMMY" $FILENAME | $AWK_VER -f ${HUMDRUM}/bin/deg.awk "DUMMY" "${OPTIONS:-null}" -

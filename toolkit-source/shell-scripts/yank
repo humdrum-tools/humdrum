@@ -192,6 +192,10 @@ then
 		exit
 	fi
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 if [ "X$OPTIONS" = X ]
 then
 	OPTIONS=null

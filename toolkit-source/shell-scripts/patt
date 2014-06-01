@@ -123,4 +123,8 @@ if [ "X$FILENAME" = X -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 $AWK_VER -f ${HUMDRUM}/bin/patt.awk "DUMMY" "${OPTIONS:-null}" "${SKIP_REG:-null}" "${OUTPUT_TAG:-null}" "${TEMPLATE:-null}" $FILENAME

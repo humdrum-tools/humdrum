@@ -100,4 +100,8 @@ then
 fi	
 # Invoke mint.awk with the specified options.
 #echo $AWK_VER -f ${HUMDRUM}/bin/mint.awk "DUMMY" "${OPTIONS:-null}" "${BREAK:-null}" "${SKIP:-null}" $FILENAME
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 $AWK_VER -f ${HUMDRUM}/bin/mint.awk "DUMMY" "${OPTIONS:-null}" "${BREAK:-null}" "${SKIP:-null}" $FILENAME

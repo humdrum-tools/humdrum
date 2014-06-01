@@ -148,4 +148,8 @@ then
 	echo "$USAGE3" 1>&2
 	exit
 fi
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 $AWK_VER -f ${HUMDRUM}/bin/scramble.awk "DUMMY" "${OPTION}" "${REGEXP:-null}" "${MOPTION:-null}" $FILENAME

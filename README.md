@@ -149,3 +149,23 @@ have two installations of the Humdrum Toolkit (or one or more
 non-existent installations).
 
 
+Verifying
+=========
+
+Once the Humdrum Toolkit has been installed, and a command such as
+```bash
+	which humdrum
+```
+returns a non-empty string, then you can type:
+```bash
+	cd humdrum
+	make regression
+```
+to verify that the programs behave properly on your particular computer system.
+You can also type
+```bash
+	make regression-verbose
+```
+to see a list of the regression tests which are done successfully.
+
+

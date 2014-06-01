@@ -1,10 +1,10 @@
 # Humdrum Toolkit test script.
 
-@COMMAND: infot
+@COMMAND: assemble
 
 @BEGIN:	TEST
 @NUMBER:	01
 @DESCRIPTION:	Basic test to see if the program runs
-@ACTION:	@COMMAND -b test@NUMBER
+@ACTION:	@COMMAND test@NUMBER test@NUMBER
 @END:	TEST
 

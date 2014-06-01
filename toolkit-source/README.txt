@@ -17,6 +17,9 @@ c-programs        == C program which need to be compiled and are interfaced
 helpscrn          == Help screens (accessed with -h option in programs) which
 		     are to be placed within $HUMDRUM/bin/helpscrn directory.
 
+support-files	  == Other files needed for running Humdrum Toolkit programs.
+                     Copied into the bin directory.
+
 regression-tests  == Regression tests for Humdrum Toolkit programs. Type 
                      "make" or "make verbose" within the regression-tests 
                      directory to check programs for new errors.

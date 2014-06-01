@@ -91,4 +91,8 @@ if [ -z "$FILENAME" -a -n "$FLAG" ]
 then
 	exit
 fi	
+if [ -z $FILENAME ]
+then
+   FILENAME="-"
+fi 
 ${HUMDRUM}/bin/ekern1.sed $FILENAME | $AWK_VER -f ${HUMDRUM}/bin/ekern2.awk | $AWK_VER -f ${HUMDRUM}/bin/ekern3.awk

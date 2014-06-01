@@ -1,8 +1,5 @@
-#!/bin/sh
 ###################################################################
-#
-# TEXT
-#
+#                           TEXT
 # Programmed by: David Huron        Date: July 11, 1995
 # Copyright (c) 1995 David Huron
 #
@@ -18,14 +15,7 @@ HELP=""
 FLAG=""
 STNDIN=""
 USAGE1="USAGE: text -h                (Help Screen)"
-USAGE2="       text [-p] [-s reg_exp] [-c chars] [file ...]"
 USAGE2="       text [-f n] [file ...]"
-
-if [ -z $HUMDRUM ]
-then
-   HUMDRUM=`echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin$//'`
-fi
-
 while getopts :hf: arg
 do
 	case "$arg" in
@@ -85,11 +75,15 @@ then
 fi
 
 # Extract all **silbe spines.  Extract the first spine (to avoid more than one).
-# Delete lines containing **silbe rests (%) and graphic hyphens (|).
+# Replace **silbe rests (%) and graphic hyphens (|) by null tokens.
 # Eliminate leading and trailing hyphens.
-# Eliminate Humdrum comments, interpretations and null data.
 # Then format the resulting text.
 sh extract -i '**silbe' $FILENAME | sh extract -f $FIELD \
-  | sed '/^%$/d; /^|$/d; s/\*\*silbe/**text/g' \
+  | sh rend -i '**silbe' -f $HUMDRUM/bin/text.rnd > $TMPDIR/$$.cxt
+sh extract -f 1 $TMPDIR/$$.cxt > $TMPDIR/$$.1xt
+sh extract -f 2 $TMPDIR/$$.cxt \
+  | sed 's/^%$/./; s/^|$/./; s/\*\*other/**text/g' \
   | sed 's/^-\(.*\)-$/\1/; s/^-\(.*\)\([^-]\)$/\1\2+/' \
-  | sh context -b '-' -e '+' -o '=' | sh humsed 's/[- /+]//g; /=/d'
+  | sh context -b '-' -e '\+' | sh humsed 's/[- /+]//g' > $TMPDIR/$$.2xt
+assemble $TMPDIR/$$.1xt $TMPDIR/$$.2xt | sh cleave -i '**text,**barlines' -o '**text'
+rm $TMPDIR/$$.[12c]xt
