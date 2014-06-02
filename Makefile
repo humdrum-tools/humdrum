@@ -58,16 +58,20 @@ support:
 	-cp toolkit-source/support-files/* $(BINDIR)
 
 
-# "make regression" will test install programs to see if they
-# are working as expected. 
+# "make regression" will run each regression test and report the
+# results for each test.
+regressions: regression
+regression-tests: regression
+tests: regression
+test: regression
 regression:
-	(cd toolkit-source/regression-tests; $(MAKE) -s)
-
-
-# "make regression-verbose" is the verbose version of the regression
-# tests where successful tests are also reported.
-regression-verbose:
 	(cd toolkit-source/regression-tests; $(MAKE) -s verbose)
+
+
+# "make regression-quite" will test install programs to see if they
+# are working as expected, reporting only problem tests.
+regression-quiet:
+	(cd toolkit-source/regression-tests; $(MAKE) -s)
 
 
 # "make install" Will add the current humdrum/bin directory to the

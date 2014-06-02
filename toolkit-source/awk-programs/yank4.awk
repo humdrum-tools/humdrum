@@ -120,8 +120,7 @@ if (FNR == 1)
 
         "echo $HUMDRUM" | getline humdrum_dir
 	if (humdrum_dir == "") {
-	
-		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | sed 's/\/bin//'" | getline humdrum_dir
+		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin//'" | getline humdrum_dir
 	}
 	"echo $AWK_VER" | getline awkver
 	if (awkver == "") {
