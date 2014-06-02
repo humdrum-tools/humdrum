@@ -58,6 +58,11 @@ support:
 	-cp toolkit-source/support-files/* $(BINDIR)
 
 
+data:
+	git submodule add -f https://github.com/humdrum-tools/humdrum-data data
+	git submodule update --init--recursive
+
+
 update:
 	git pull
 ifneq ($(wildcard .gitmodules),) 
