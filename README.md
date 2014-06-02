@@ -129,7 +129,7 @@ editor, or you can append the line from the terminal with this command:
 ```bash
     echo 'export PATH="/usr/local/humdrum/bin:$PATH"' >> ~/.profile
 ```
-To have the computer read the ~/.profile file after then changes type:
+To have the computer read the ~/.profile file after the line has been added type:
 ```bash
    source ~/.profile
 ```
