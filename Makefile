@@ -58,6 +58,14 @@ support:
 	-cp toolkit-source/support-files/* $(BINDIR)
 
 
+update:
+	git pull
+ifneq ($(wildcard .gitmodules),) 
+	git submodule update --init --recursive
+	git submodule foreach "(git checkout master; git pull)"
+endif
+
+
 # "make regression" will run each regression test and report the
 # results for each test.
 regressions: regression

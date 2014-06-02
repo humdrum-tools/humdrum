@@ -181,4 +181,16 @@ something like this:
 ```
 
 
+Updating
+========
+
+To periodically update the humdrum package if you downloaded 
+using <em>git</em>, type this command in the installation directory 
+for humdrum:
+```bash
+   make update
+   make bin
+```
+
+
 
