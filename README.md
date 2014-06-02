@@ -134,7 +134,7 @@ To have the computer read the ~/.profile file after the line has been added type
    source ~/.profile
 ```
 or log off an on again to have the computer automatically read ~/.profile
-when you login..  
+when you login.
 
 
 Verifying
