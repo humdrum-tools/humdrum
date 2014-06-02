@@ -11,6 +11,7 @@ or
 Further documentation about the Humdrum Toolkit as well 
 as installing and using it can be found at http://www.humdrum.org.
 
+
 Downloading
 ===============================
 
@@ -37,16 +38,14 @@ musical scores, instead type:
 ```
 
 If you want to download sample Humdrum musical scores without the 
-Humdrum Extras package, you can do these commands:
+Humdrum Extras package, you can do this command in the main humdrum
+directory (if you have git installed):
 ```bash
-    git clone https://github.com/humdrum-tools/humdrum
-    cd humdrum
-    git submodule add -f https://github.com/humdrum-tools/humdrum-data data
-    git submodule update --init --recursive
+   make data
 ```
 
 Or to use the humdrum-data repository outside of the humdrum directory, type
-in the installation directory:
+in the target installation directory:
 ```bash
     git clone --recursive https://github.com/humdrum-tools/humdrum-data
 ```
@@ -57,7 +56,6 @@ Compiling
 
 To compile the C programs and create the ```bin``` directory for the
 Humdrum Toolkit, type ```make bin``` inside of the humdrum directory:
-
 ```bash
     cd humdrum
     make bin
@@ -65,7 +63,6 @@ Humdrum Toolkit, type ```make bin``` inside of the humdrum directory:
 
 Note that the gcc program must be installed in order to compile the C programs.
 Check to see if it is installed by typing this command:
-
 ````bash
    which gcc
 ```

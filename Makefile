@@ -12,7 +12,7 @@
 ## This can be done automatically with the command "make install".
 ##
 
-.PHONY: all awk shell help clean cprogs install bin regression support
+.PHONY: all awk shell help clean cprogs install bin regression support data asdf
 
 BINDIR = bin
 
@@ -60,7 +60,15 @@ support:
 
 data:
 	git submodule add -f https://github.com/humdrum-tools/humdrum-data data
-	git submodule update --init--recursive
+	git submodule update --init --recursive
+
+
+remove-data:
+	-git submodule deinit -f data
+	-git rm -rf data
+ifeq ($(filter-out .gitmodules,$(shell wc -l .gitmodules)),3)
+	-rm .gitmodules
+endif
 
 
 update:
