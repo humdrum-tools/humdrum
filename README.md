@@ -33,7 +33,10 @@ is with the [git](http://git-scm.com) command. If you have git installed
 on your computer (see below for git installation notes), download the 
 Humdrum Toolkit repository with the command:
 ```bash
+    cd /usr/local    # recommended installation location
     git clone https://github.com/humdrum-tools/humdrum
+    # or if there are permission writing errors, try:
+    sudo git clone https://github.com/humdrum-tools/humdrum
 ```
 
 To use alongside the Humdrum Extras package, instead download the
