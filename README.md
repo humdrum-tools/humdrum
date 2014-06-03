@@ -166,6 +166,7 @@ open a new terminal, you can type the following command to include
 the humdrum/bin directory in the PATH command search path variable
 within the file ~/.profile.
 ```bash
+   cd humdrum
    make install
 ```
 This installation method is suitable for single-user installations.
@@ -188,8 +189,19 @@ directory has been added correctly to the PATH environmental variable by typing:
 ```
 which should display the humdrum/bin directory for the Humdrum Toolkit.
 If the above command produces no result, see the previous section about adding
-humdrum/bin to the PATH variable.  You can further check that the commands
-are visible by running the ```which``` command:
+humdrum/bin to the PATH variable.  
+
+
+The Humdrum Toolkit makefile automates the above step and prints some
+extra guidance on the next steps you can do:
+```bash
+   cd humdrum
+   make checkpath
+```
+
+After the PATH variable has been modified to include the Humdurm Toolkit bin
+directory, You can further check that the Humdrum Toolkit commands are 
+visible by running the ```which``` command:
 ```bash
 	which mint
 ```
