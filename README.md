@@ -5,16 +5,34 @@ This repository contains the "classical" Humdrum Toolkit.
 To use along with the [Humdrum Extras](https://github.com/craigsapp/humextra) 
 package, it is better to install the Humdrum Toolkit from:
 
-https://github.com/humdrum-tools/humdrum-tools 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://github.com/humdrum-tools/humdrum-tools 
 
 The Humdrum Toolkit is a set of [unix
-command-line](https://www.youtube.com/watch?v=bE9DyH43C2I) programs.
-This includes linux computers as well as Apple OS X.  To use in MS
-Windows, install a unix terminal emulator.  A comprehensive package
-for linux tools in Windows can be downloaded from http://www.cygwin.com.
-The simplest method is to download all cygwin packages when installing,
+command-line](https://www.youtube.com/watch?v=bE9DyH43C2I) programs
+which process data files, including musical scores, in the Humdrum
+file format.  The Humdrum Toolkit can used on unix-based computer
+systems such as linux and Apple OS X.  To use in MS Windows, install
+a unix terminal emulator.  A comprehensive package for linux tools
+in Windows can be downloaded from http://www.cygwin.com.  The
+simplest method is to download all cygwin packages when installing,
 but that will require a long installation duration (such as overnight
 for some reason).
+
+If you are lucky or a unix expert (and have git and gcc installed),
+then you can run the following commands to download and install the
+Humdrum Toolkit as a single-user installation as well as download
+sample musical data and test all of the tools (some commands may need
+to be prefixed with ```sudo```):
+```bash
+   cd /usr/local
+   git clone https://github.com/humdrum-tools/humdrum
+   cd humdrum
+   make bin
+   make install
+   make data
+   make regression
+```
+Otherwise, follow the more detailed instructions below.
 
 Further documentation about the Humdrum Toolkit as well 
 as installing and using it can be found at http://www.humdrum.org.
@@ -39,10 +57,12 @@ Humdrum Toolkit repository with the command:
     sudo git clone https://github.com/humdrum-tools/humdrum
 ```
 
-To use alongside the Humdrum Extras package, instead download the
+To use alongside the [Humdrum Extras](https://github.com/craigsapp/humextra) 
+package, instead download the
 [humdrum-tools repository](https://github.com/humdrum-tools/humdrum-tools) 
 by typing:
 ```bash
+    cd /usr/local
     git clone --recursive https://github.com/humdrum-tools/humdrum-tools
 ```
 
@@ -60,7 +80,7 @@ the following command within the target installation directory:
     git clone --recursive https://github.com/humdrum-tools/humdrum-data
 ```
 
-## Installing git ##
+### installing git ###
 
 [Git](http://git-scm.com/book/en/Getting-Started-Git-Basics) is a
 version control program that is the main interface to online
@@ -104,6 +124,8 @@ Humdrum Toolkit, type ```make bin``` inside of the humdrum directory:
     cd humdrum
     make bin
 ```
+Also, typing just ```make``` will give a list of things you can
+do with the make command, listed in the order that they can be done.
 
 Note that to use the ```make``` command or ```gcc``` for compiling
 the C programs, these must already be installed.  Check to see if
@@ -135,7 +157,7 @@ To use the Humdrum Toolkit commands within any directory, you must add the
 humdrum/bin directory to the PATH environmental variable.  This can be
 done temporarily for the current session by typing:
 ```bash
-    cd humdrum
+    cd humdrum  # or cd /usr/local/humdrum or wherever it is installed
     PATH=`pwd`/bin:$PATH
 ```
 
@@ -147,8 +169,8 @@ within the file ~/.profile.
    make install
 ```
 This installation method is suitable for single-user installations.
-Super-users can install for all users on a computer system by running
-this command:
+Super-users can instead install for all users on a computer system by
+running this command:
 ```bash
    sudo echo "export PATH=/usr/local/humdrum/bin:$PATH" >> /etc/profile"
 ```
@@ -204,9 +226,10 @@ Updating
 ========
 
 To periodically update the humdrum package if you downloaded 
-using <em>git</em>, type this command in the installation directory 
-for humdrum:
+using <em>git</em>, type these commands in the installation directory 
+for humdrum (make commands may need to be prefixed with ```sudo``):
 ```bash
+   cd /usr/local/humdrum
    make update
    make bin
 ```

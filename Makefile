@@ -247,6 +247,8 @@ ifeq (,$(HUMDRUM_PATH))
 	@echo "*** If so, then the Humdrum Toolkit is installed and ready to use!"
 	@echo "*** You can also run regression tests to check command behaviors:"
 	@echo "***     [0;31mmake regression[0;32m"
+	@echo "*** And you can download sample Humdrum scores into the 'data' subdirectory:"
+	@echo "***     [0;31mmake data[0;32m"
 	@echo "[0m"
 else ifneq ($(HUMDRUM_PATH),$(HUMDRUM_TARGET))
 	echo "export PATH=`pwd`/bin:\$$PATH" >> ~/.profile
@@ -265,6 +267,11 @@ else ifneq ($(HUMDRUM_PATH),$(HUMDRUM_TARGET))
 	@echo "*** to verify that the Humdrum Tools are accessible."
 	@echo "*** The computer should reply to the above command with this string:"
 	@echo "***     [0;32m`pwd`/bin/census[0;31m"
+	@echo "*** If so, then the Humdrum Toolkit is installed and ready to use!"
+	@echo "*** You can also run regression tests to check command behaviors:"
+	@echo "***     [0;32mmake regression[0;31m"
+	@echo "*** And you can download sample Humdrum scores into the 'data' subdirectory:"
+	@echo "***     [0;32mmake data[0;31m"
 	@echo "[0m"
 else
 	@echo "[0;32m"
@@ -276,6 +283,8 @@ else
 	@echo "*** If so, then the Humdrum Toolkit is installed and ready to use!"
 	@echo "*** You can also run regression tests to check command behaviors:"
 	@echo "***     [0;31mmake regression[0;32m"
+	@echo "*** And you can download sample Humdrum scores into the 'data' subdirectory:"
+	@echo "***     [0;31mmake data[0;32m"
 	@echo "[0m"
 endif
 
@@ -317,6 +326,8 @@ else
 	@echo "*** then the Humdrum Toolkit is set up properly and ready to use."
 	@echo "*** You can also run regression tests to check command behaviors:"
 	@echo "***     [0;31mmake regression[0;32m"
+	@echo "*** And you can download sample Humdrum scores into the 'data' subdirectory:"
+	@echo "***     [0;31mmake data[0;32m"
 	@echo "[0m"
 endif
 
