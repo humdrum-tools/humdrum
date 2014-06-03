@@ -10,7 +10,7 @@ package, it is better to install the Humdrum Toolkit from:
 The Humdrum Toolkit is a set of [unix
 command-line](https://www.youtube.com/watch?v=bE9DyH43C2I) programs
 which process data files, including musical scores, in the Humdrum
-file format.  The Humdrum Toolkit can used on unix-based computer
+file format.  The Humdrum Toolkit can be used on unix-based computer
 systems such as linux and Apple OS X.  To use in MS Windows, install
 a unix terminal emulator.  A comprehensive package for linux tools
 in Windows can be downloaded from http://www.cygwin.com.  The
@@ -21,8 +21,8 @@ for some reason).
 If you are lucky or a unix expert (and have git and gcc installed),
 then you can run the following commands to download and install the
 Humdrum Toolkit as a single-user installation as well as download
-sample musical data and test all of the tools (some commands may need
-to be prefixed with ```sudo```):
+sample musical data and test all of the tools (some commands below 
+may need to be prefixed with ```sudo```):
 ```bash
    cd /usr/local
    git clone https://github.com/humdrum-tools/humdrum
@@ -47,9 +47,11 @@ on the GitHub website:
 and then click on the "Download ZIP" button.
 
 However, the preferable method of downloading the Humdrum Toolkit
-is with the [git](http://git-scm.com) command. If you have git installed
-on your computer (see below for git installation notes), download the 
-Humdrum Toolkit repository with the command:
+is with the [git](http://git-scm.com) command.  This will allow you
+to easily update the software and sample data occasionally by typing
+```make update && make bin``` in the installation directory.  If
+you have git installed on your computer (see below for git installation
+notes), download the Humdrum Toolkit repository with the command:
 ```bash
     cd /usr/local    # recommended installation location
     git clone https://github.com/humdrum-tools/humdrum
@@ -74,8 +76,10 @@ directory after downloading (if you have git installed):
    make data
 ```
 
-Or to use the humdrum-data repository outside of the humdrum directory, type
-the following command within the target installation directory:
+Or to use the humdrum-data repository outside of the humdrum directory (such
+as in your home directory if the Humdrum Toolkit is installed in 
+/usr/local/humdrum, type the following command within the target 
+installation directory:
 ```bash
     git clone --recursive https://github.com/humdrum-tools/humdrum-data
 ```
@@ -239,7 +243,7 @@ Updating
 
 To periodically update the humdrum package if you downloaded 
 using <em>git</em>, type these commands in the installation directory 
-for humdrum (make commands may need to be prefixed with ```sudo``):
+for humdrum (<em>make</em> commands may need to be prefixed with ```sudo``):
 ```bash
    cd /usr/local/humdrum
    make update
