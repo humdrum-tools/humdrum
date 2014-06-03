@@ -250,7 +250,7 @@ To periodically update the humdrum package if you downloaded
 using <em>git</em>, type these commands in the installation directory 
 for humdrum (<em>make</em> commands may need to be prefixed with ```sudo``):
 ```bash
-   cd `which mint | sed 's/bin\/mint$//' # or go to wherever installed
+   cd `which mint | sed 's/bin\/mint$//'` # or go to wherever installed
    make update
    make bin
 ```
