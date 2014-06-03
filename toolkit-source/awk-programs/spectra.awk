@@ -43,8 +43,9 @@ BEGIN {
 	
 	"echo $HUMDRUM" | getline humdrum_dir
 	if (humdrum_dir == "") {
-		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1 | sed 's/\/bin//'" | getline humdrum_dir
+		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1" | getline humdrum_dir
 	}
+	sub(/\/bin$/, "", humdrum_dir)
         
 }
 {
