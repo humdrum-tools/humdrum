@@ -35,7 +35,7 @@ may need to be prefixed with ```sudo```):
 Otherwise, follow the more detailed instructions below.
 
 Further documentation about the Humdrum Toolkit as well 
-as installing and using it can be found at http://www.humdrum.org.
+as installing and using it can be found at http://www.humdrum.org, 
 
 
 Downloading
@@ -44,7 +44,11 @@ Downloading
 To download the Humdrum Toolkit package, go to the following page 
 on the GitHub website:
   https://github.com/humdrum-tools/humdrum
-and then click on the "Download ZIP" button.
+and then click on the "Download ZIP" button on the right-hand side 
+of the page.  Or from a linux terminal, download with the command:
+```bash
+   wget https://github.com/humdrum-tools/humdrum/archive/master.zip
+```
 
 However, the preferable method of downloading the Humdrum Toolkit
 is with the [git](http://git-scm.com) command.  This will allow you
@@ -70,24 +74,25 @@ by typing:
 
 If you want to download sample Humdrum file musical scores but not the 
 Humdrum Extras package, you can do this command in the main Humdrum Toolkit
-directory after downloading (if you have git installed):
+directory after downloading (if you are using git to install):
 ```bash
    cd humdrum
    make data
 ```
 
-Or to use the humdrum-data repository outside of the humdrum directory (such
+Or to use the humdrum-data repository outside of the humdrum directory,such
 as in your home directory if the Humdrum Toolkit is installed in 
 /usr/local/humdrum, type the following command within the target 
 installation directory:
 ```bash
+    cd
     git clone --recursive https://github.com/humdrum-tools/humdrum-data
 ```
 
 ### installing git ###
 
 [Git](http://git-scm.com/book/en/Getting-Started-Git-Basics) is a
-version control program that is the main interface to online
+version control program which is the main interface to online
 repositories on GitHub.  To check if the ```git``` program is
 installed on your computer, type:
 ```bash
@@ -175,7 +180,7 @@ within the file ~/.profile.
 ```
 This installation method is suitable for single-user installations.
 Super-users can instead install for all users on a computer system by
-running this command:
+running this command instead:
 ```bash
    sudo echo "export PATH=/usr/local/humdrum/bin:$PATH" >> /etc/profile"
 ```
@@ -245,7 +250,7 @@ To periodically update the humdrum package if you downloaded
 using <em>git</em>, type these commands in the installation directory 
 for humdrum (<em>make</em> commands may need to be prefixed with ```sudo``):
 ```bash
-   cd /usr/local/humdrum
+   cd `which mint | sed 's/bin\/mint$//' # or go to wherever installed
    make update
    make bin
 ```
