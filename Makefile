@@ -240,7 +240,7 @@ regression-quiet:
 ## is installing the Humdrum Toolkit, then they should instead manually
 ## add the installation bin directory into the /etc/profile file.
 
-install: man
+install: 
 ifeq (,$(HUMDRUM_PATH))
 	echo "export PATH=`pwd`/bin:\$$PATH" >> ~/.profile
 	source ~/.profile
