@@ -125,6 +125,17 @@ support:
 	@chmod 0755 $(BINDIR)/ekern1.sed
 
 
+###########################################################################
+##
+## Targets that install man pages.
+##
+
+man:
+	if [ -d /usr/share/man/man1 ]; \
+	then \
+		cp toolkit-source/man/man1/*.1* /usr/share/man/man1; \
+	fi
+
 
 ###########################################################################
 ##
@@ -229,7 +240,7 @@ regression-quiet:
 ## is installing the Humdrum Toolkit, then they should instead manually
 ## add the installation bin directory into the /etc/profile file.
 
-install:
+install: man
 ifeq (,$(HUMDRUM_PATH))
 	echo "export PATH=`pwd`/bin:\$$PATH" >> ~/.profile
 	source ~/.profile
