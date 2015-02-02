@@ -420,7 +420,7 @@ if ($0 ~/^MEL/ || mel_processing) # The "MEL" keyword denotes the pitch and
 
 	if ($0 ~/\/\//)        # Keep watch for the double barline.
 		{
-		gsub(" \/\/.*","",$0)
+		gsub(" //.*","",$0)
 		double_bar = YES
 		}
 	gsub("^ +","",$0)      # Eliminate leading blanks (non MEL

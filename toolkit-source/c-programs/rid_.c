@@ -1321,7 +1321,7 @@ void free_tokens(tokens fields)
 
 	for (i = 0; i < fields.number; i += 1)
 		free(fields.token[i]);
-	free(fields.token);
+   	free(fields.token);
 	}
 
 /****************************************************************************
