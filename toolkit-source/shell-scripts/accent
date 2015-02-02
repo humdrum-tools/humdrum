@@ -243,10 +243,10 @@ melac  = $2
 # Identify an explicit accent/articulation markings:
 articulation = 0.5
 if ($3 ~/z/)  articulation = 1.00	# sforzando
-if ($3 ~/\`/) articulation = 0.95	# attacca
+if ($3 ~/`/) articulation = 0.95	# attacca
 if ($3 ~/\^/) articulation = 0.90	# accent
 if ($3 ~/~/)  articulation = 0.85	# tenuto
-if ($3 ~/\"/) articulation = 0.80	# pizzicato
+if ($3 ~/"/) articulation = 0.80	# pizzicato
 if ($3 ~/s/)  articulation = 0.75	# spiccato
 # NOTE: staccato is missing -- indicated by apostrophe.
 
