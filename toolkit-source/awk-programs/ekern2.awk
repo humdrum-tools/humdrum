@@ -1,5 +1,5 @@
 #####################################################################
-##                          EKERN.AWK
+##                          EKERN2.AWK
 #
 # Programmed by:  David Huron     Date: 1994 August and 1995 June
 # Copyright (c) 1995 David Huron
@@ -124,7 +124,7 @@ BEGIN	{
 # Catch any continuations of multi-record data types.
 if (!single_record)
 	{
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print "!!" $0
 	next
 	}
@@ -151,7 +151,7 @@ if ($0 ~/^[[:upper:]]+$/)  # Single upper-case words appear to indicate the
 if ($0 ~/^BEM/)  # The "BEM" keyword pertains to source-related information.
 	{
 	gsub("^BEM\\[","!! ",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
@@ -159,7 +159,7 @@ if ($0 ~/^CMT/ || $0 ~/^REM/)  # The "CMT" and "REM" keywords denotes comments.
 	{
 	gsub("^CMT\\[","!! ",$0)
 	gsub("^REM\\[","!! ",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
@@ -167,13 +167,13 @@ if ($0 ~/^CUT/)  # The "CUT" keyword denotes the title of the piece.
 	{
 	output_line = $0
 	gsub("^CUT\\[","!!!OTL: ",output_line)
-	while (output_line !~ /\]$/)
+	while (output_line !~ /[]]$/)
 		{
 		getline
 		gsub("^ +","",$0)  # Eliminate leading blanks.
 		output_line = output_line " " $0
 		}
-	gsub("\]$","",output_line)  # Eliminate trailing bracket.
+	gsub("[]]$","",output_line)  # Eliminate trailing bracket.
 	print output_line
 	next
 	}
@@ -183,21 +183,21 @@ if ($0 ~/^ETH/)  # The "ETH" keyword denotes the "ethnicity" of the piece.
 	# Change a few spellings:
 	gsub("Araber","Arab",$0)
 	gsub("Indianer","American Indian",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
 if ($0 ~/^F[^[:upper:]]/)  # The "F" keyword denotes the database name to which
 	{         # the piece belongs.
 	gsub("^F\\[","",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	end_comments[lines++] = "!!!ONB: ESAC (Essen Associative Code) Database: " $0
 	next
 	}
 if ($0 ~/^FA[^[:upper:]]/)  # The "FA" keyword denotes unknown information.
 	{
 	gsub("^FA\\[","!! ",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
@@ -205,7 +205,7 @@ if ($0 ~/^F[CK]T/)  # The "FCT" or "FKT" keyword denotes the social "function"
 	{           # or genre of the piece.
 	gsub("^FCT\\[","",$0)
 	gsub("^FKT\\[","",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print "!!!AGN: " $0
 	next
 	}
@@ -221,7 +221,7 @@ if ($0 ~/^KEY/)  # The "KEY" record identifies the work number within
 	print "**kern"
 	print "*ICvox"
 	print "*Ivox"
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	time_units = $2
 	gsub("^0","",time_units)  # Remove any leading zeros.
 	# Assign the tonic (remember: "H" = B natural; "B" = B-flat)
@@ -296,7 +296,7 @@ if ($0 ~/^KEY/)  # The "KEY" record identifies the work number within
 if ($0 ~/^MOD/)  # The "MOD" keyword denotes unknown information.
 	{
 	gsub("^MOD\\[","!! ",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
@@ -325,14 +325,14 @@ if ($0 ~/^REG/)  # The "REG" keyword denotes the "region" of the piece.
 	gsub("ARE: China","ARE: Asia, China",$0)
 	gsub("Asien","Asia",$0)
 	gsub(" +,",",",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
 if ($0 ~/^SRC/)  # The "SRC" keyword denotes source-related information
 	{
 	gsub("^SRC\\[","!!!YOR: ",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
@@ -340,14 +340,14 @@ if ($0 ~/^ST/)  # The "ST" and "STN" keyword denote unknown information.
 	{
 	gsub("^ST\\[","!! ",$0)
 	gsub("^STN\\[","!! ",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
 if ($0 ~/^TXT/)  # The "TXT" keyword denotes text/lyrics information.
 	{
 	current_line = $0
-	while (current_line !~/\]/)
+	while (current_line !~/[]]/)
 		{
 		getline
 		current_line = $0
@@ -357,21 +357,21 @@ if ($0 ~/^TXT/)  # The "TXT" keyword denotes text/lyrics information.
 if ($0 ~/^TRD/)  # The "TRD" keyword denotes unknown information.
 	{
 	gsub("^TRD\\[","!! ",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
 if ($0 ~/^TTR/)  # The "TTR" keyword denotes unknown information.
 	{
 	gsub("^TTR\\[","!! ",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
 if ($0 ~/^ZZ[^[:upper:]]/)  # The "ZZ" keyword denotes unknown information.
 	{
 	gsub("^ZZ\\[","!!ZZ ",$0)
-	single_record = gsub("\]$","",$0)
+	single_record = gsub("[]]$","",$0)
 	print $0
 	next
 	}
