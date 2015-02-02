@@ -131,7 +131,7 @@ function process_tandem(   meter,numerator)
 			meter = $kern_spine
 			gsub("\\*M","",meter)
 			numerator = meter		  # Find the metric numerator ...
-			gsub("\/.*","",numerator)  # ... by eliminating the denominator.
+			gsub("/.*","",numerator)  # ... by eliminating the denominator.
 			#
 			# If the numerator is other than 2, 3, 4, 6, 9, or 12,
 			# issue an error and exit.
