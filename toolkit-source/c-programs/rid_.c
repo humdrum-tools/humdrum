@@ -305,7 +305,7 @@ void process_file()
 	status++;
 	tokens fields, terminate;
         fields.token = NULL;
-        terminal.token = NULL;
+        terminate.token = NULL;
 	char *character;
 	char current_line[LINE_LENGTH];
 	buffer *next_buf;
