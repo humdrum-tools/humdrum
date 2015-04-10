@@ -73,13 +73,15 @@ $(TARGDIR)/%: $(notdir %.c)
 ifeq ($(wildcard $(TARGDIR)),)
 	mkdir -p $(TARGDIR)
 endif
-	$(COMPILER) $(PREFLAGS) -o $@$(EXTEN) $< $(POSTFLAGS) \
+	@echo [CC] $@
+	@$(COMPILER) $(PREFLAGS) -o $@$(EXTEN) $< $(POSTFLAGS) \
 		&& strip $@$(EXTEN)
 
 # Test compile into the current directory:
 %: $(notdir %.c)
-	$(COMPILER) $(PREFLAGS) -o $@$(EXTEN) $< $(POSTFLAGS) \
-		&& strip $@$(EXTEN)
+	@echo [CC] $@
+	@$(COMPILER) $(PREFLAGS) -o $@$(EXTEN) $< $(POSTFLAGS) \
+		&& strip $@$(EXTEN) &> /dev/null
 
 
 
