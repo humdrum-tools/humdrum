@@ -81,7 +81,7 @@ endif
 %: $(notdir %.c)
 	@echo [CC] $@
 	@$(COMPILER) $(PREFLAGS) -o $@$(EXTEN) $< $(POSTFLAGS) \
-		&& strip $@$(EXTEN) &> /dev/null
+		&& strip $@$(EXTEN)
 
 
 
