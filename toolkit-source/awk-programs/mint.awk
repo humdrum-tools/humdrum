@@ -420,14 +420,22 @@ function process_data(     output_record,current_token)
 			#
 			else
 				{
+				prefix = "";
+				postfix = "";
+				if ($cur_pos ~ /{/) {
+					prefix = "{";
+				}
+				if ($cur_pos ~ /}/) {
+					postfix = "}";
+				}
 				if (current_interp[cur_pos] == "**kern")
-					current_token = process_kern($cur_pos)
+					current_token = prefix process_kern($cur_pos) postfix
 				else if (current_interp[cur_pos] == "**pitch")
-					current_token = process_pitch($cur_pos)
+					current_token = prefix previx process_pitch($cur_pos) postfix
 				else if (current_interp[cur_pos] == "**Tonh")
-					current_token = process_Tonh($cur_pos)
+					current_token = prefix process_Tonh($cur_pos) postfix
 				else if (current_interp[cur_pos] == "**solfg")
-					current_token = process_solfg($cur_pos)
+					current_token = prefix process_solfg($cur_pos) postfix
 				}
 			#
 			# Construct a string for the current line
