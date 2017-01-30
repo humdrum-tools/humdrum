@@ -58,6 +58,7 @@ you have git installed on your computer (see below for git installation
 notes), download the Humdrum Toolkit repository with the command:
 ```bash
     cd /usr/local    # recommended installation location
+    git config --global core.autocrlf false # cygwin users should do this
     git clone https://github.com/humdrum-tools/humdrum
     # or if there are permission writing errors, try:
     sudo git clone https://github.com/humdrum-tools/humdrum
@@ -69,6 +70,7 @@ package, instead download the
 by typing:
 ```bash
     cd /usr/local
+    git config --global core.autocrlf false  # cygwin users should do this
     git clone --recursive https://github.com/humdrum-tools/humdrum-tools
 ```
 
@@ -123,6 +125,13 @@ can use [Homebrew](http://brew.sh) to install git:
    brew install git
 ```
 
+Cygwin/Windows users should run the command
+```bash
+   git config --global core.autocrlf false
+```
+before using git to download a repository.  This command will prevent
+git from converting unix-style newlines to the windows style (which would
+mess up the AWK scripts).
 
 Compiling 
 =========
