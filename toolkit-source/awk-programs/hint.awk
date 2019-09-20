@@ -83,7 +83,7 @@ BEGIN {
 	pitch_pitch = "[ABCDEFG]"
 	Tonh_pitch = "Es|As|[ABCDEFGHS]"
 	solfg_pitch = "do|re|mi|fa|sol|la|si"
-	octave_class = "[^+-][0-9]"
+	octave_class = "[A-Gb#xHSaielosdn][0-9]"
 	options = ""
 	break_reg = ""
 	skip_reg = ""
@@ -742,8 +742,8 @@ function process_solfg(token  ,j,arrayd,split_num,found,semits,pitch,octave)
 				#
 				# Determine if there are any flats or sharps
 				#
-				if (match(arrayd[j],/_b+/)) semits -= (RLENGTH - 1)
-				else if (match(arrayd[j],/_d+/)) semits += (RLENGTH - 1)
+				if (match(arrayd[j],/~b+/)) semits -= (RLENGTH - 1)
+				else if (match(arrayd[j],/~d+/)) semits += (RLENGTH - 1)
 				#
 				# Determine which octave the note is in
 				#
