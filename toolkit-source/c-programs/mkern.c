@@ -1022,8 +1022,8 @@ void	check_repeats (void)
 
 void	process (void)
 {
-	char*   status = NULL;
-        status++;
+	// char*   status = NULL;
+   // status++;
 	int	num_matched;
 	int	i, j;
 	//int 	k;
@@ -1138,7 +1138,8 @@ void	process (void)
 			while ( (j=getc(infile)) == 'P' || j=='S')
 			{
 				ungetc(j, infile);
-				status = fgets(buffer, 960, infile);
+				// status = fgets(buffer, 960, infile);
+				fgets(buffer, 960, infile);
 			}
 
 			if ( j != ' ')
@@ -1509,8 +1510,8 @@ void	scandirect ( char *dirname )
 
 void	getinputdata (void)
 {
-	char* status = NULL;
- 	status++;
+	// char* status = NULL;
+ 	// status++;
 	char arg[1024];
 	int	done;
 
@@ -1522,6 +1523,7 @@ void	getinputdata (void)
 	while (!done)
 	{
 		printf("\nEnter directory of source (MuseData) files:\n");
+		// fgets(arg, 1024, stdin);
 		status = fgets(arg, 1024, stdin);
 		if (strlen(arg) > 0 )
 		{
@@ -1540,7 +1542,8 @@ void	getinputdata (void)
 	}
 
 	printf("\nEnter directory for target (Kern) files:\n");
-	status = fgets(arg, 1024, stdin);
+	// status = fgets(arg, 1024, stdin);
+	fgets(arg, 1024, stdin);
 	if (strlen(arg) > 0 )
 	{
 		sscanf(arg, "%s", outdirname);
@@ -1549,7 +1552,8 @@ void	getinputdata (void)
 	arg[0] = '\0';
 
 	printf("\nEnter filename for conversion script file that will be created\nby this program:\n");
-	status = fgets(arg, 1024, stdin);
+	// status = fgets(arg, 1024, stdin);
+	fgets(arg, 1024, stdin);
 	sscanf(arg, "%s", scriptfilename);
 	/* printf("Script filename set to %s\n", scriptfilename); */
 	if (strlen(scriptfilename) > 0)
@@ -1557,7 +1561,8 @@ void	getinputdata (void)
 	arg[0] = '\0';
 
 	printf("\nEnter filename for final assembled (kern) datafile:\n");
-	status = fgets(arg, 1024, stdin);
+	// status = fgets(arg, 1024, stdin);
+	fgets(arg, 1024, stdin);
 	sscanf(arg, "%s", targetfilename);
 	/* printf("target filename set to %s\n", targetfilename); */
 	arg[0] = '\0';

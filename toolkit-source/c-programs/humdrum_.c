@@ -458,8 +458,8 @@ void print_help() {
 
 void check_files() {
 
-	char* status = NULL;
-        status++;
+	// char* status = NULL;
+   // status++;
 	tokens fields;					/* Holds each field in a line */
 	char *character;
 	file_list *current_file;
@@ -502,7 +502,8 @@ void check_files() {
 
 		/* Loop through all input lines for the current file */
 
-		status = fgets(current_line,LINE_LENGTH,current_file->stream);
+		// status = fgets(current_line,LINE_LENGTH,current_file->stream);
+		fgets(current_line,LINE_LENGTH,current_file->stream);
 		character = strchr(current_line,NEWLINE);
 		if (character != NULL) {
 			*character = TERMINATE;
@@ -563,7 +564,8 @@ void check_files() {
 				}
 			}
 			fnr += 1;
-			status = fgets(current_line,LINE_LENGTH,current_file->stream);
+			// status = fgets(current_line,LINE_LENGTH,current_file->stream);
+			fgets(current_line,LINE_LENGTH,current_file->stream);
 			character = strchr(current_line,NEWLINE);
 			if (character != NULL) {
 				*character = TERMINATE;

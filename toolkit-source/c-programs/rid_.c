@@ -301,8 +301,8 @@ void parse_command(int argc, char *argv[])
 
 void process_file()
 	{
-	char* status = NULL;
-	status++;
+	// char* status = NULL;
+	// status++;
 	tokens fields, terminate;
         fields.token = NULL;
         terminate.token = NULL;
@@ -310,7 +310,8 @@ void process_file()
 	char current_line[LINE_LENGTH];
 	buffer *next_buf;
 
-	status = fgets(current_line,LINE_LENGTH,stream);
+	// status = fgets(current_line,LINE_LENGTH,stream);
+	fgets(current_line,LINE_LENGTH,stream);
 	if ((character = strrchr(current_line,'\n')) != NULL) *character = '\0';
 
 	/* Loop through all input lines for the current file */
@@ -339,7 +340,8 @@ void process_file()
 				free_tokens(fields);
 				}
 			}
-		status = fgets(current_line,LINE_LENGTH,stream);
+		// status = fgets(current_line,LINE_LENGTH,stream);
+		fgets(current_line,LINE_LENGTH,stream);
 		if ((character = strrchr(current_line,'\n')) != NULL) *character = '\0';
 		}
 
