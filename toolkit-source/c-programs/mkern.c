@@ -1523,8 +1523,8 @@ void	getinputdata (void)
 	while (!done)
 	{
 		printf("\nEnter directory of source (MuseData) files:\n");
-		// fgets(arg, 1024, stdin);
-		status = fgets(arg, 1024, stdin);
+		// status = fgets(arg, 1024, stdin);
+		fgets(arg, 1024, stdin);
 		if (strlen(arg) > 0 )
 		{
 			sscanf(arg, "%s", indirname);
