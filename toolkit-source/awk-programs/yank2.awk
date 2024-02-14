@@ -115,7 +115,9 @@ if (FNR == 1)
 	if (tmpdir == "") {
 		tmpdir = "/tmp"
 	}
-        "echo $HUMDRUM" | humdrum_dir
+	# Fixed 20240212 by adding getline:
+	# "echo $HUMDRUM" | humdrum_dir
+	"echo $HUMDRUM" | getline humdrum_dir
 	if (humdrum_dir == "") {
 		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1" | getline humdrum_dir
 		sub(/\/bin$/, "", humdrum_dir)
@@ -127,8 +129,10 @@ if (FNR == 1)
 	if (awkver == "") {
 		"which gawk" | getline awkver
 	}
-	("echo tmpdir "/temp-$$-" ++i) | getline tmpname
-   	system(awkver " -f " humdrum_dir "/bin/find_reg.awk '" REGEXP "' " FILENAME " > " tmpname)
+	# Fixed 20240212 by adding missing double quote (and space):
+	# ("echo tmpdir "/temp-$$-" ++i) | getline tmpname
+	("echo " tmpdir "/temp-$$-" ++i) | getline tmpname
+	system(awkver " -f " humdrum_dir "/bin/find_reg.awk '" REGEXP "' " FILENAME " > " tmpname)
 	#
 	# Store the values in the array number_of_lines
 	#
