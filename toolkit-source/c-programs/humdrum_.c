@@ -1,9 +1,13 @@
 /****************************************************************************/
-/* HUMDRUM_.C                               		                    	*/
-/*	Programmer: Tim Racinsky	Date: July 1993			   					*/
-/*	This file contains the main program for the humdrum command.   	    	*/
-/*									    									*/
-/*      Bug fix related to a newer compiler by Craig Sapp 28 Sep 2006       */
+/* Filename:   humdrum_.c                                                   */
+/* Programmer: Tim Racinsky                                                 */
+/* Date:       Date: July 1993                                              */
+/*                                                                          */
+/* This file contains the main program for the humdrum command,             */
+/* which is used to identify error in the Humdrum data syntax.              */
+/*                                                                          */
+/* Bug fix related to a newer compiler by Craig Sapp 28 Sep 2006            */
+/* Increase sizes of line lengths and filenames for large files 28 Feb 2024 */
 /****************************************************************************/
 
 #include <stdio.h>
@@ -24,17 +28,17 @@
 #include <stdlib.h>
 
 /****************************************************************************/
-/* DEFINES								   									*/
-/* #define statements for the humdrum program				    			*/
+/* DEFINES                                                                  */
+/* #define statements for the humdrum program                               */
 /****************************************************************************/
 
 #define TRUE 1
 #define FALSE 0
 #define NO_ERROR 1
 #define ERROR 0
-#define FILE_LENGTH 100
-#define LINE_LENGTH 1024
-#define NAME_LENGTH 80
+#define FILE_LENGTH 16384
+#define LINE_LENGTH 16384
+#define NAME_LENGTH 256
 #define NULL_TOKEN "."
 #define SPACE " "
 #define CONSECUTIVE_SPACE "  "
@@ -111,7 +115,7 @@
                  "interpretation\n                   "
 
 /****************************************************************************/
-/* TYPEDEFS								   									*/
+/* TYPEDEFS                                                                 */
 /****************************************************************************/
 
 typedef struct file_list file_list;
