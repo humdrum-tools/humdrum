@@ -92,7 +92,7 @@ if (FNR == 1)
 	# "cat $TMPDIR/yank5$" | getline max_occurrences
 	# close("cat $TMPDIR/yank5$")
 	#max_occurrences = max_occurrences + 0
-        "echo $HUMDRUM" | humdrum_dir
+        "echo $HUMDRUM" | getline humdrum_dir
 	if (humdrum_dir == "") {
 		"echo $PATH | tr : '\n' | grep 'humdrum/bin$' | head -n 1" | getline humdrum_dir
 		sub(/\/bin$/, "", humdrum_dir)
