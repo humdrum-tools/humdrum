@@ -54,13 +54,13 @@
 int	timebase;
 int	generate_script;
 char	buffer[960];
-char	infilename[80];
+char	infilename[4096];
 char	indirname[1024];
 char	outdirname[1024];
-char	outfilename[80];
-char	rcfilename[80];
-char	scriptfilename[80];
-char	targetfilename[80];
+char	outfilename[4096];
+char	rcfilename[4096];
+char	scriptfilename[4096];
+char	targetfilename[4096];
 char	stack[100];
 int	stackptr;
 int	diatonic=0;
@@ -1688,16 +1688,16 @@ int	do_file ( int filenum )
 void	generate (int k)
 {
 	int i;
-	char	script[1104];
+	char	script[5500];
 	FILE	*scriptf;
 
 	if (k<2)
 		return;
 
 #ifdef __MSDOS__
-	sprintf(script, "%s\\%s", outdirname, scriptfilename);
+	snprintf(script, 5500, "%s\\%s", outdirname, scriptfilename);
 #else
-	sprintf(script, "%s/%s", outdirname, scriptfilename);
+	snprintf(script, 5500, "%s/%s", outdirname, scriptfilename);
 #endif
 
 	scriptf = fopen(script, "w");
