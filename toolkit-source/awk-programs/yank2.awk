@@ -58,6 +58,7 @@
 #   are to be cut from the current segment.  This array has to be 
 #   recalculated for each different segment.
 #
+
 BEGIN {
 	OPTIONS = "c"
 	OPTIONS_REGEXP = "[" OPTIONS "]"
@@ -111,7 +112,7 @@ if (FNR == 1)
 	# Use the program 'find_reg.awk' in order to get a list of the number
 	# of data records between each set of regular expression records
 	#
-	"echo $TMPDIR" | getline tmpdir
+
 	if (tmpdir == "") {
 		tmpdir = "/tmp"
 	}

@@ -110,6 +110,11 @@ if (FNR == 1)
 	# Use the program 'findpair.awk' to find all pairs of regular
 	# expressions in the current input file
 	#
+
+	# fallback to /tmp if environment TMPDIR is not set
+	if (ENVIRON["TMPDIR"] == "") ENVIRON["TMPDIR"] = "/tmp"
+	if (ENVIRON["TMPDIR"] == "/") ENVIRON["TMPDIR"] = "/tmp"
+
 	"echo $TMPDIR" | getline tmpdir
 	if (tmpdir == "") {
 		tmpdir = "/tmp"

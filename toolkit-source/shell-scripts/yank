@@ -28,10 +28,8 @@ INPUT=""
 STNDIN=""
 FLAG=""
 
-if [ -z $TMPDIR ]
-then
-   TMPDIR=/tmp
-fi
+# default TMPDIR to /tmp if not already set
+TMPDIR=${TMPDIR:-/tmp}
 
 if [ -z $AWK_VER ]
 then

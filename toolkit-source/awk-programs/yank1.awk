@@ -46,6 +46,7 @@
 #  -records_to_cut:  holds the line numbers that are to be yanked from the
 #   current input file.  Each line number is a subscript in the array.
 #
+
 BEGIN {
 	OPTIONS = "c"
 	OPTIONS_REGEXP = "[" OPTIONS "]"
@@ -56,6 +57,11 @@ BEGIN {
 		   "  yank -o regexp [-e regexp] range [-c] [file ...]"
 	FS = OFS = "\t"
 	TRUE = 1; FALSE = 0
+
+	# fallback to /tmp if environment TMPDIR is not set
+	if (ENVIRON["TMPDIR"] == "") ENVIRON["TMPDIR"] = "/tmp"
+	if (ENVIRON["TMPDIR"] == "/") ENVIRON["TMPDIR"] = "/tmp"
+
 	#
 	# Set standard error to the appropriate 'file'
 	#

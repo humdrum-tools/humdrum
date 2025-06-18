@@ -41,9 +41,15 @@
 #  -which_to_print:  Each index of this array is a number corresponding to one
 #   of the specified section labels.  These are the ones that will be output.
 #
+
 BEGIN {
 	FS = OFS = "\t"
 	TRUE = 1; FALSE = 0
+
+	# fallback to /tmp if environment TMPDIR is not set
+	if (ENVIRON["TMPDIR"] == "") ENVIRON["TMPDIR"] = "/tmp"
+	if (ENVIRON["TMPDIR"] == "/") ENVIRON["TMPDIR"] = "/tmp"
+
 	#
 	# Set standard error to the appropriate 'file'
 	#
